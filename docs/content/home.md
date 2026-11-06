@@ -23,7 +23,7 @@ Old meta description: none (add one).
    - Button: "All Reviews" → /reviews/
 4. **Proudly serving your neighborhood.** (bg: service-area-map-hudson-valley.jpg with dark overlay; red underline rule):
    - list: Westchester County · Putnam County · Connecticut
-   - Google Maps iframe (`q=Cortlandt Manor, NY`, z=10) — present in markup but rendered inside this map section
+   - Google Maps iframe (`q=Verplanck, NY`, z=10) — present in markup but rendered inside this map section
 5. Footer (see shared.md)
 
 ## New page copy (final — builders use exactly this)

@@ -134,7 +134,7 @@ export const site = {
   serviceAreaSentence: 'Proudly serving Westchester County, NY and the Greater Hudson Valley',
   hours: 'Available weekdays and weekends', founded: 'over 15 years', founder: 'Rafael Da Silva',
   social: { facebook: '', instagram: '', yelp: '' }, // render only if non-empty
-  mapEmbed: 'https://maps.google.com/maps?q=Cortlandt%20Manor%2C%20NY&t=m&z=10&output=embed&iwloc=near',
+  mapEmbed: 'https://maps.google.com/maps?q=Verplanck%2C%20NY&t=m&z=10&output=embed&iwloc=near',
   nav: [...], footerNav: {...}
 }
 ```
@@ -161,7 +161,7 @@ export const site = {
 | `ImageCarousel` | `images[{src,alt,width,height}], aspect='4/3', ariaLabel, eagerFirst?`. Scroll-snap, 1 slide/view (home About carousel: 1 on mobile, 2 on md, 3 on lg), rounded, prev/next overlay buttons (white circle, navy icon), counter "2 / 7". Pure CSS + ~40 lines JS. |
 | `ProjectReview` | `quote, name, project, images[], flip?` — quote card + ImageCarousel. |
 | `ContactCard` | Facts list with icons (phone, mail, map-pin, map, clock). |
-| `ContactBand` | Image bg (`service-area-map-millwood.jpg`) + navy overlay; white card with legal name, PO Box, phone, service area sentence, hours, "Contact Us" button. Used on About, HVAC, Maintenance, Reviews. |
+| `ContactBand` | Image bg (`service-area-map-hudson-valley.jpg`) + navy overlay; white card with legal name, PO Box, phone, service area sentence, hours, "Contact Us" button. Used on About, HVAC, Maintenance, Reviews. |
 | `ContactForm` | See §6. |
 | `MapEmbed` | Lazy iframe + noscript image (see contact-us.md). |
 | `Prose` | `max-w-prose mx-auto` typographic wrapper for policy pages (h2 spacing, links brand-700 underline). |
@@ -246,7 +246,7 @@ Plus `public/CNAME` = `rdairwayhvac.com`. README: point the domain's A/ALIAS rec
 - Home service cards contained **Lorem ipsum** → replaced with real intros from the HVAC page.
 - `/maintenance/` was an exact duplicate of `/hvac/` → rebuilt as a real maintenance page from existing Routine Service copy.
 - Phone typo **917**-373-1687 in 3 places (should be 914). Header email link and all social icons had **no href**.
-- Two addresses (PO Box 340 Verplanck vs 44 Hidden Hollow Lane Millwood). PO Box used.
+- Owner confirmed (Nov 2026): the only address is PO BOX 340, Verplanck, NY 10596; the only email is rdairway@gmail.com; maps centre on Verplanck, NY.
 - Privacy Policy and Terms are **Shopify boilerplate**; Terms names another company ("Sellsvoice") and an online store. Kept verbatim per the content rule; owner should replace.
 - Orphan `/service-offer/` Typeform quiz and default "Hello world!" blog post → dropped. "Blog"/"News" footer links → dropped.
 - No favicon, no meta descriptions, no Open Graph, no structured data on the old site.

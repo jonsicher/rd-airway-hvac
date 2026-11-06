@@ -10,8 +10,8 @@ All facts below are copied from the old site. Use the CANONICAL values everywher
 | Short name | R.D. Airway | |
 | Phone (display) | (914) 373-1687 | `tel:9143731687`. Old site ALSO shows "917-373-1687" in 3 places (About header, HVAC body x3, Contact `tel:` href) — this is a typo (914 is the Westchester area code and is used in every footer/contact block). Use 914 everywhere. |
 | Phone (E.164) | +1-914-373-1687 | |
-| Email | rdairway@gmail.com | Shown in the header top bar on every page (the old `<a>` had no `mailto:` href — broken). Policies mention `rdairwayhvac@gmail.com`; keep that only inside the verbatim policy text. |
-| Mailing address | PO BOX 340, Verplanck, NY 10596 | Used on Home footer (© 2024 version), About, HVAC, Reviews, Contact, Privacy. Older footer (© 2020 version on inner pages) shows "44 Hidden Hollow Lane, Millwood, NY, 10546" and the map-pin background image points there. Decision: PO Box is the public address (newer); do NOT publish Hidden Hollow Lane except inside verbatim Terms text where it already appears. |
+| Email | rdairway@gmail.com | Shown in the header top bar on every page (the old `<a>` had no `mailto:` href — broken). Policies use the same address. |
+| Mailing address | PO BOX 340, Verplanck, NY 10596 | Used on Home footer (© 2024 version), About, HVAC, Reviews, Contact, Privacy. Owner confirmed (Nov 2026): the only address is PO BOX 340, Verplanck, NY 10596; the only email is rdairway@gmail.com; maps centre on Verplanck, NY. |
 | Service area (list) | Westchester County · Putnam County · Connecticut | From Home "Proudly serving your neighborhood." |
 | Service area (sentence) | Proudly serving Westchester County, NY and the Greater Hudson Valley | From About/HVAC/Reviews contact band |
 | Hours | Available Weekdays and Weekends | No clock hours given anywhere — do not invent. |
@@ -19,7 +19,7 @@ All facts below are copied from the old site. Use the CANONICAL values everywher
 | Experience claim | "over 15 years" | About + HVAC body copy |
 | Founder | Rafael Da Silva | About page |
 | Social | Facebook, Instagram, Yelp icons exist in old footer but have NO hrefs (broken). | Decision: `site.social = { facebook: '', instagram: '', yelp: '' }`; render an icon only when its URL is non-empty. Ship with none shown. |
-| Map | Google Maps embed on Home: `https://maps.google.com/maps?q=Cortlandt%20Manor%2C%20NY&t=m&z=10&output=embed&iwloc=near` | Reuse on Contact page (lazy iframe). |
+| Map | Google Maps embed on Home: `https://maps.google.com/maps?q=Verplanck%2C%20NY&t=m&z=10&output=embed&iwloc=near` | Reuse on Contact page (lazy iframe). |
 | Copyright | © {currentYear} rdairwayhvac.com | Old: "© 2024" (home) / "© 2020" (inner) |
 | Domain | rdairwayhvac.com | `public/CNAME` |
 

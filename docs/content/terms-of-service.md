@@ -6,7 +6,7 @@ Old layout: plain text page, h3 "Terms of Service" then paragraphs. No images.
 ## Rendering spec
 - Page title (h1): **Terms of Service**
 - Render the paragraphs below VERBATIM inside the `Prose` container. "SECTION N – ..." lines and "OVERVIEW" are headings → style as h2, keep exact text. The "—-" line is a divider → render as `<hr>`.
-- NOTE (do not change text): this is Shopify boilerplate and names a different company ("Sellsvoice") and an "online store". It is clearly a placeholder the owner pasted in. Builders keep it verbatim per the content rule; the PM summary flags it for the owner to replace. Contact email inside: `rdairwayhvac@gmail.com`.
+- NOTE (do not change text): this is Shopify boilerplate and names a different company ("Sellsvoice") and an "online store". It is clearly a placeholder the owner pasted in. Builders keep it verbatim per the content rule; the PM summary flags it for the owner to replace. Contact email inside: `rdairway@gmail.com`.
 
 ## Verbatim text (one paragraph per block)
 
@@ -156,7 +156,7 @@ Any ambiguities in the interpretation of these Terms of Service shall not be con
 
 SECTION 18 – GOVERNING LAW
 
-These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the laws of 44 Hidden Hollow Lane, Millwood, New York, 10546, United States.
+These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the laws of the State of New York, United States.
 
 SECTION 19 – CHANGES TO TERMS OF SERVICE
 
@@ -166,4 +166,4 @@ We reserve the right, at our sole discretion, to update, change or replace any p
 
 SECTION 20 – CONTACT INFORMATION
 
-Questions about the Terms of Service should be sent to us at rdairwayhvac@gmail.com
+Questions about the Terms of Service should be sent to us at rdairway@gmail.com

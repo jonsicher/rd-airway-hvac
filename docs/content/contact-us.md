@@ -27,7 +27,7 @@ Required flags were not visible in markup; make Name, Email/Phone (at least one)
 2. Two-column: 
    - Left `ContactCard`: "Call Today" → big tel link (914) 373-1687; email mailto; "Mailing address: PO BOX 340, Verplanck, NY 10596"; "Service area: Westchester County · Putnam County · Connecticut"; "Hours: Available weekdays and weekends".
    - Right `ContactForm` (fields: Name*, Email*, Phone (type=tel, inputmode=tel), "I am…" select with the 3 original options, Message*, honeypot, consent-free). Button: "Submit Request".
-3. Map section: lazy-loaded Google Maps iframe from the old home page (`https://maps.google.com/maps?q=Cortlandt%20Manor%2C%20NY&t=m&z=10&output=embed&iwloc=near`), `title="Map of R.D. Airway HVAC service area around Cortlandt Manor, NY"`, `loading="lazy"`, `referrerpolicy="no-referrer-when-downgrade"`, wrapped in a 16:9 container; with a static fallback `<img src="/images/service-area-map-hudson-valley.jpg">` shown if JS disabled (noscript).
+3. Map section: lazy-loaded Google Maps iframe from the old home page (`https://maps.google.com/maps?q=Verplanck%2C%20NY&t=m&z=10&output=embed&iwloc=near`), `title="Map of R.D. Airway HVAC service area around Verplanck, NY"`, `loading="lazy"`, `referrerpolicy="no-referrer-when-downgrade"`, wrapped in a 16:9 container; with a static fallback `<img src="/images/service-area-map-hudson-valley.jpg">` shown if JS disabled (noscript).
 4. Form behaviour: see PLAN §Contact form.
 5. Success state: inline "Thanks — we received your request and will get back to you shortly. For urgent service call (914) 373-1687."
 

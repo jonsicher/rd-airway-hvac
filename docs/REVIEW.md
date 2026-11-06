@@ -15,7 +15,7 @@ All P0/P1/P2 items below are marked **[DONE]**. Owner decisions remain open.
 
 | Check | Result |
 |---|---|
-| Content vs `docs/content/*.md` + live old site | All 6 reviews (quote, name, project type) verbatim; About paragraphs, HVAC intros + 12 bullets, home "About the company" paragraph, policy/terms paragraphs verbatim (old-site paragraph diff: 0 missing). Phone `(914) 373-1687` / `tel:+19143731687`, `rdairway@gmail.com`, `PO BOX 340, Verplanck, NY 10596` on every page. No `917` typo, no Hidden Hollow Lane outside Terms, no lorem ipsum, no invented ratings/certs/stats. |
+| Content vs `docs/content/*.md` + live old site | All 6 reviews (quote, name, project type) verbatim; About paragraphs, HVAC intros + 12 bullets, home "About the company" paragraph, policy/terms paragraphs verbatim (old-site paragraph diff: 0 missing). Phone `(914) 373-1687` / `tel:+19143731687`, `rdairway@gmail.com`, `PO BOX 340, Verplanck, NY 10596` on every page. No `917` typo, no second street address, no lorem ipsum, no invented ratings/certs/stats. |
 | Links (crawl of `dist/`) | 0 broken internal links, all anchors (`/hvac/#installation|#emergency`) exist, sitemap lists 8 pages (404 excluded), `CNAME`, `.nojekyll`, `robots.txt`, favicons, `og-default.jpg` present. |
 | Carousels (26 instances, desktop + mobile) | Next/prev click, ArrowLeft/Right, dots, counter all update; testimonial autoplay advances at 6 s, pause button works, autoplay off under `prefers-reduced-motion`. Chris G. portrait block letterboxes correctly. |
 | Lazy images | Blank slides in full-page screenshots are a capture artefact; with real scrolling every visible slide image loads on mobile. No image request 404s. |
@@ -108,8 +108,8 @@ All P0/P1/P2 items below are marked **[DONE]**. Owner decisions remain open.
 
 ### Owner decisions (content, not code — flag in the hand-off)
 
-- **Privacy Policy and Terms of Service are Shopify boilerplate** (mentions "online store", "orders", "Shopify", "Returns Policy") and the Terms name another company, **"Sellsvoice"**, and give **44 Hidden Hollow Lane, Millwood, NY** in Section 18. Kept verbatim per the content rule; owner must replace both before relying on them.
-- Policy contact email is `rdairwayhvac@gmail.com` while the site uses `rdairway@gmail.com` — confirm which is monitored.
+- **Privacy Policy and Terms of Service are Shopify boilerplate** (mentions "online store", "orders", "Shopify", "Returns Policy") and the Terms name another company, **"Sellsvoice"**; Section 18's governing-law clause was corrected to the State of New York (owner-approved). Kept verbatim per the content rule; owner must replace both before relying on them.
+- Policy contact email unified to `rdairway@gmail.com` (owner-confirmed).
 - No license number, social URLs, or clock hours exist on the old site, so none were added. Supply them if wanted (`src/data/site.ts` already has `social` slots that render only when filled).
 - Contact form ships in mailto-fallback mode. To get real submissions, set the `PUBLIC_FORM_ENDPOINT` repository variable (Formspree-style) per README.
 

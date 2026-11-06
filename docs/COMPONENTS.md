@@ -293,7 +293,7 @@ One per page (uses fixed element ids).
 
 ## ContactBand
 
-No props. Map background (`service-area-map-millwood.jpg`) + navy overlay + white card: legal name,
+No props. Map background (`service-area-map-hudson-valley.jpg`) + navy overlay + white card: legal name,
 PO Box, phone, service-area sentence, hours, "Contact Us" button. Use on About, HVAC, Maintenance,
 Reviews, just before `CtaBand`.
 

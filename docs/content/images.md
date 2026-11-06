@@ -9,8 +9,7 @@ Orientation: L = landscape 1600×1200, P = portrait 1200×1600.
 | logo-rd-airway.png | rd-2.png | 750×250 | R.D. Airway HVAC logo (blue "AIRWAY", red "R" + red/blue swoosh), transparent | header + footer, all pages |
 | logo-rd-airway-trimmed.png | (trimmed) | 650×248 | same, whitespace trimmed | — |
 | hero-suburban-neighborhood.jpg | modern-luxury-home-...-ai-scaled.jpg | 1600×914 | Tree-lined suburban street with large homes, spring (AI-generated stock) | Home "About the company" section background |
-| service-area-map-hudson-valley.jpg | Screenshot-95.png | 1600×629 | Google Maps screenshot of Westchester / Putnam / lower Hudson Valley / CT border | Home "Proudly serving your neighborhood" background |
-| service-area-map-millwood.jpg | background-map-2.jpg | 1600×941 | Blue-grey stylised map with red radius circle around Millwood NY | About/HVAC/Reviews contact band background |
+| service-area-map-hudson-valley.jpg | Screenshot-95.png | 1600×629 | Google Maps screenshot of Westchester / Putnam / lower Hudson Valley / CT border | Home "Proudly serving your neighborhood" and contact band background |
 | tech-attic-install.jpg | 2020/09/IMG_0004-2.jpg | L | Technician kneeling in spray-foam attic beside new air handler | Home carousel slide 1; HVAC Routine carousel; Reviews (Daniel W.) |
 | tech-exterior-lineset-rough-in.jpg | 2020/09/IMG_0021.jpg | L | Technician crouched outside a house running refrigerant line sets | Home carousel slide 2; Reviews (Nancy O.) |
 | tech-mounting-mini-split.jpg | 2020/09/IMG_0008.jpg | L | Technician on a step ladder mounting a wall mini-split bracket | Home carousel slide 3; Reviews (Nancy O.) |

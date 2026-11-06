@@ -8,7 +8,7 @@ Old layout: plain text page, h3 "Privacy Policy" then paragraphs. No images.
 - Sub-line (small, muted): "Last updated: (not stated on old site — omit, do not invent a date)"
 - Render the paragraphs below VERBATIM inside the `Prose` container (max-w-prose). Lines in ALL CAPS (e.g. "PERSONAL INFORMATION WE COLLECT") are section headings → render as `h2` in Title Case is NOT allowed; keep the exact text, you may style them as h2 while keeping the all-caps string.
 - Bare URLs in the text become links (rel="noopener", target="_blank").
-- NOTE (do not change text): this policy is Shopify-template boilerplate; it mentions "online store", "Shopify", "orders". The owner should replace it; builders keep it verbatim per the content rule. The contact email inside the policy is `rdairwayhvac@gmail.com` (different from the site header email `rdairway@gmail.com`) — keep as written here.
+- NOTE (do not change text): this policy is Shopify-template boilerplate; it mentions "online store", "Shopify", "orders". The owner should replace it; builders keep it verbatim per the content rule. The contact email inside the policy is `rdairway@gmail.com` (different from the site header email `rdairway@gmail.com`) — keep as written here.
 
 ## Verbatim text (one paragraph per block)
 
@@ -56,6 +56,6 @@ The Site is not intended for individuals under the age of 16.
 
 CHANGES We may update this privacy policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal or regulatory reasons.
 
-CONTACT US For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at rdairwayhvac@gmail.com or by mail using the details provided below:
+CONTACT US For more information about our privacy practices, if you have questions, or if you would like to make a complaint, please contact us by e-mail at rdairway@gmail.com or by mail using the details provided below:
 
 PO BOX 340 Verplanck, NY, 10596, United States
