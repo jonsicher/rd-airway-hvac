@@ -46,12 +46,22 @@ public/        images/ (logo only), favicons, og-default.jpg, CNAME, robots.txt,
 
 ## Contact form
 
-GitHub Pages has no server, so the form works in one of two modes:
+GitHub Pages has no server, so submissions go through [FormSubmit](https://formsubmit.co)
+(free, no account), which emails each one to **rdairway@gmail.com** with the customer's
+address set as reply-to.
+
+**One-time activation:** after the site is live, submit the form once from
+https://rdairwayhvac.com/contact-us/. FormSubmit sends an "Activate Form" email to
+rdairway@gmail.com; click the button in it. Until then submissions are not delivered (the
+form shows an error and asks visitors to call). Optionally, FormSubmit's activation email
+gives a random alias (e.g. `https://formsubmit.co/ajax/abc123…`) that hides the email address
+from spam scrapers; set it as `PUBLIC_FORM_ENDPOINT` to use it.
 
 | `PUBLIC_FORM_ENDPOINT` | Behaviour |
 |---|---|
-| empty (default) | Submitting opens the visitor's email app with a pre-filled message to rdairway@gmail.com. |
-| set (e.g. `https://formspree.io/f/xxxxxxx`) | Submits via `fetch` and shows an inline success / error message. Works with any Formspree-compatible endpoint. |
+| empty (default) | `fetch` POST to `https://formsubmit.co/ajax/rdairway@gmail.com`, inline success / error message. |
+| any URL (FormSubmit alias, Formspree, …) | Same, posted to that URL instead. |
+| `mailto` | Submitting opens the visitor's email app with a pre-filled message to rdairway@gmail.com. |
 
 Locally: copy `.env.example` to `.env` and set the value. In CI: add a repository
 **variable** (not a secret — it is public in the built HTML) named `PUBLIC_FORM_ENDPOINT`

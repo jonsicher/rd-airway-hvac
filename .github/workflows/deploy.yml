@@ -20,8 +20,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Optional form backend (e.g. https://formspree.io/f/xxxx). Set under
-      # Settings → Secrets and variables → Actions → Variables. Empty = mailto fallback.
+      # Optional contact-form endpoint override. Set under Settings → Secrets and
+      # variables → Actions → Variables. Empty = FormSubmit → rdairway@gmail.com.
       PUBLIC_FORM_ENDPOINT: ${{ vars.PUBLIC_FORM_ENDPOINT }}
       ASTRO_TELEMETRY_DISABLED: 1
     steps:
