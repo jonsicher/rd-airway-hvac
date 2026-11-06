@@ -1,0 +1,17 @@
+---
+// Redirect for an old WordPress URL (/privacy-policy-2/) so existing links and search results keep working.
+const target = new URL('/privacy-policy/', Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={target} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <title>Redirecting…</title>
+  </head>
+  <body>
+    <p>This page has moved. <a href={target}>Continue to the new page</a>.</p>
+  </body>
+</html>

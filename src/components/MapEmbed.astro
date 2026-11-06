@@ -1,7 +1,5 @@
 ---
-import Photo from './Photo.astro';
 import { site } from '../data/site';
-import { img } from '../data/images';
 
 interface Props {
   src?: string;
@@ -14,7 +12,6 @@ const {
   title = 'Map of R.D. Airway HVAC service area around Cortlandt Manor, NY',
   class: className = '',
 } = Astro.props;
-const fallback = img('service-area-map-hudson-valley');
 ---
 <div class:list={['relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface-50 shadow-card sm:aspect-video', className]}>
   <iframe
@@ -25,7 +22,5 @@ const fallback = img('service-area-map-hudson-valley');
     class="absolute inset-0 h-full w-full border-0"
     allowfullscreen
   ></iframe>
-  <noscript>
-    <Photo image={fallback} sizes="(min-width: 1280px) 1200px, 100vw" class="absolute inset-0 h-full w-full object-cover" />
-  </noscript>
 </div>
+<p class="mt-3 text-sm"><a href={site.mapLink} target="_blank" rel="noopener" class="font-semibold">Open map in Google Maps</a></p>

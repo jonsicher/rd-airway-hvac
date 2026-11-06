@@ -26,7 +26,6 @@ const P = { width: 1200, height: 1600 };
 const registry: Record<string, { alt: string; width: number; height: number }> = {
   'hero-suburban-neighborhood': { alt: 'Tree-lined suburban street with large homes in spring', width: 1600, height: 914 },
   'service-area-map-hudson-valley': { alt: 'Map of Westchester County, Putnam County, the lower Hudson Valley and the Connecticut border', width: 1920, height: 755 },
-  'service-area-map-millwood': { alt: 'Stylised map of the service area around Millwood, NY', width: 1600, height: 941 },
   'tech-attic-install': { alt: 'Technician kneeling in a spray-foam attic beside a new air handler', width: 1600, height: 1203 },
   'tech-exterior-lineset-rough-in': { alt: 'Technician crouched outside a house running refrigerant line sets', ...L },
   'tech-mounting-mini-split': { alt: 'Technician on a step ladder mounting a wall mini-split bracket', ...L },

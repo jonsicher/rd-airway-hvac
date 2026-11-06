@@ -35,7 +35,7 @@ const err = 'mt-1.5 text-sm font-medium text-red-600';
   <form
     id="contact-form"
     method="POST"
-    action={endpoint || '#'}
+    action={endpoint ? endpoint.replace('/ajax/', '/') : '#'}
     novalidate
     data-endpoint={endpoint}
     data-email={site.email}
@@ -69,6 +69,7 @@ const err = 'mt-1.5 text-sm font-medium text-red-600';
 
     <input type="hidden" name="_subject" value="Website request" />
     <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_next" value={new URL('/contact-us/?sent=1', Astro.site).href} />
     <input type="hidden" name="_captcha" value="false" />
     <div class="hidden" aria-hidden="true">
       <label for="cf-honey">Leave this field empty</label>
@@ -106,6 +107,7 @@ const err = 'mt-1.5 text-sm font-medium text-red-600';
       const tpl = document.getElementById(id) as HTMLTemplateElement;
       status.replaceChildren(tpl.content.cloneNode(true));
     };
+    if (new URLSearchParams(location.search).get('sent') === '1') show('cf-success');
     const field = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
     const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 

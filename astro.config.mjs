@@ -10,7 +10,7 @@ export default defineConfig({
   build: { format: 'directory' },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/404'),
+      filter: (page) => !/\/(404|privacy-policy-2|service-offer)\/?$/.test(page),
     }),
   ],
   vite: {

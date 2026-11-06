@@ -35,6 +35,7 @@ export const site = {
   founder: 'Rafael Da Silva',
   // Old site had icons with no links. Render an icon only when a URL is set.
   social: { facebook: '', instagram: '', yelp: '' } as Record<'facebook' | 'instagram' | 'yelp', string>,
+  mapLink: 'https://www.google.com/maps/search/?api=1&query=Cortlandt%20Manor%2C%20NY',
   mapEmbed:
     'https://maps.google.com/maps?q=Cortlandt%20Manor%2C%20NY&t=m&z=10&output=embed&iwloc=near',
   logo: { src: '/images/logo-rd-airway-trimmed.png', width: 400, height: 153, alt: 'R.D. Airway HVAC' },

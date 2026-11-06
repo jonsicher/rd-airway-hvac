@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import ContactBand from '../components/ContactBand.astro';
 import ProjectReview from '../components/ProjectReview.astro';
 import { reviews } from '../data/reviews';
 import { business } from '../data/jsonld';
@@ -32,5 +33,6 @@ const businessWithReviews = {
       {reviews.map((r, i) => <ProjectReview {...r} flip={i % 2 === 1} />)}
     </div>
   </section>
+  <ContactBand />
   <CtaBand title="Want work like this in your home?" text="Call or send a request and we'll get back to you. Available weekdays and weekends." />
 </BaseLayout>

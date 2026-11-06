@@ -8,6 +8,10 @@ interface Props {
 }
 
 const { items, onDark = false, class: className = '' } = Astro.props;
+// Split text so phone numbers like 914-373-1687 render as tappable tel: links.
+const PHONE = /(\(?\d{3}\)?[ -]\d{3}-\d{4})/;
+const parts = (text: string) => text.split(PHONE);
+const tel = (n: string) => `tel:+1${n.replace(/\D/g, '')}`;
 ---
 <ul class:list={['space-y-5', className]}>
   {items.map((it) => (
@@ -17,7 +21,7 @@ const { items, onDark = false, class: className = '' } = Astro.props;
       </span>
       <p>
         <strong class:list={['font-semibold', onDark ? 'text-white' : 'text-navy-900']}>{it.label}</strong>
-        <span aria-hidden="true"> – </span><span class="sr-only">: </span>{it.text}
+        <span aria-hidden="true"> – </span><span class="sr-only">: </span>{parts(it.text).map((t, i) => (i % 2 ? <a href={tel(t)} class="font-semibold whitespace-nowrap">{t}</a> : t))}
       </p>
     </li>
   ))}

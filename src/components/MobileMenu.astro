@@ -61,7 +61,9 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
     const focusables = () =>
       Array.from(panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
 
+    let hideTimer: number | undefined;
     const open = () => {
+      window.clearTimeout(hideTimer);
       root.hidden = false;
       document.documentElement.style.overflow = 'hidden';
       toggle.setAttribute('aria-expanded', 'true');
@@ -80,7 +82,8 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
       document.documentElement.style.overflow = '';
       document.removeEventListener('keydown', onKey);
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.setTimeout(() => (root.hidden = true), reduce ? 0 : 200);
+      window.clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => (root.hidden = true), reduce ? 0 : 200);
       if (returnFocus) toggle.focus();
     };
 
