@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ProjectReview from '../components/ProjectReview.astro';
+import { reviews } from '../data/reviews';
+import { business } from '../data/jsonld';
+
+// One HVACBusiness entity for this page: the site-wide one plus its reviews.
+// Review items carry only author + body (no ratings exist on the old site).
+const businessWithReviews = {
+  ...business,
+  review: reviews.map((r) => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: r.name },
+    reviewBody: r.quote,
+  })),
+};
+---
+<BaseLayout
+  title="Customer Reviews & Project Photos | R.D. Airway HVAC"
+  description="What Westchester and Hudson Valley homeowners say about R.D. Airway's mini split, central air and zoning installs — with photos from every project."
+  business={businessWithReviews}
+>
+  <PageHero
+    eyebrow="Reviews"
+    title="Customer Testimonials"
+    subtitle="Real projects, real homeowners across Westchester County, NY and the Greater Hudson Valley."
+  />
+  <section class="bg-white py-16 lg:py-24" aria-label="Customer testimonials with project photos">
+    <div class="container-site space-y-16 lg:space-y-24">
+      {reviews.map((r, i) => <ProjectReview {...r} flip={i % 2 === 1} />)}
+    </div>
+  </section>
+  <CtaBand title="Want work like this in your home?" text="Call or send a request and we'll get back to you. Available weekdays and weekends." />
+</BaseLayout>

@@ -1,0 +1,52 @@
+---
+import Photo from './Photo.astro';
+import Carousel from './Carousel.astro';
+import type { Img } from '../data/images';
+
+interface Props {
+  images: Img[];
+  ariaLabel: string;
+  /** CSS aspect-ratio for every slide, e.g. '4/3' (default), '16/9', '3/4', '5/4'. */
+  aspect?: string;
+  /** First image loads eagerly with fetchpriority=high (use only for the first hero carousel). */
+  eagerFirst?: boolean;
+  perView?: { base?: number; md?: number; lg?: number };
+  /** 'cover' crops to fill; 'contain' letterboxes on navy (for portrait photos). */
+  fit?: 'cover' | 'contain';
+  showCounter?: boolean;
+  showDots?: boolean;
+  onDark?: boolean;
+  /** `sizes` attribute for the <img> elements. */
+  sizes?: string;
+  class?: string;
+}
+
+const {
+  images,
+  ariaLabel,
+  aspect = '4/3',
+  eagerFirst = false,
+  perView,
+  fit = 'cover',
+  showCounter = true,
+  showDots = false,
+  onDark = false,
+  sizes = '(min-width: 1024px) 50vw, 100vw',
+  class: className = '',
+} = Astro.props;
+---
+<Carousel ariaLabel={ariaLabel} perView={perView} showCounter={showCounter} showDots={showDots} onDark={onDark} class={className}>
+  {images.map((im, i) => (
+    <figure class:list={['m-0 overflow-hidden rounded-2xl', fit === 'contain' ? 'bg-navy-950' : 'bg-surface-50']} style={`aspect-ratio:${aspect}`}>
+      <Photo
+        image={im}
+        sizes={sizes}
+        loading={eagerFirst && i === 0 ? 'eager' : 'lazy'}
+        fetchpriority={eagerFirst && i === 0 ? 'high' : undefined}
+        decoding="async"
+        draggable="false"
+        class:list={['h-full w-full', fit === 'contain' ? 'object-contain' : 'object-cover']}
+      />
+    </figure>
+  ))}
+</Carousel>

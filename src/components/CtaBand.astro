@@ -1,0 +1,41 @@
+---
+import { site, telHref } from '../data/site';
+import Button from './Button.astro';
+
+interface Cta { label: string; href: string }
+interface Props {
+  title?: string;
+  text?: string;
+  primary?: Cta;
+  /** Show the phone button (default true). */
+  showCall?: boolean;
+  id?: string;
+}
+
+const {
+  title = 'Ready to get comfortable?',
+  text = "Available weekdays and weekends. Call or send a request and we'll get back to you.",
+  primary = site.cta,
+  showCall = true,
+  id,
+} = Astro.props;
+---
+<section id={id} class="bg-white py-16 lg:py-20">
+  <div class="container-site">
+    <div class="on-dark relative isolate overflow-hidden rounded-3xl bg-navy-gradient px-6 py-12 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10 lg:px-16 lg:py-16">
+      <svg class="pointer-events-none absolute -bottom-6 -left-10 -z-10 w-[26rem] max-w-[90%] opacity-20" viewBox="0 0 400 160" fill="none" aria-hidden="true">
+        <path d="M10 120 C 120 20, 260 20, 390 70" stroke="#3EA6DB" stroke-width="18" stroke-linecap="round" />
+        <path d="M40 150 C 150 70, 270 70, 380 110" stroke="#CF534D" stroke-width="12" stroke-linecap="round" />
+      </svg>
+      <div class="max-w-2xl">
+        <h2 class="text-white">{title}</h2>
+        {text && <p class="mt-4 text-lg text-white/85">{text}</p>}
+        <slot />
+      </div>
+      <div class="mt-8 flex shrink-0 flex-col gap-3 sm:flex-row lg:mt-0">
+        <Button href={primary.href} size="lg" iconRight="arrow-right">{primary.label}</Button>
+        {showCall && <Button href={telHref} size="lg" variant="secondary" onDark icon="phone">{site.phoneDisplay}</Button>}
+      </div>
+    </div>
+  </div>
+</section>

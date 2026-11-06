@@ -1,0 +1,58 @@
+---
+import Photo from '../components/Photo.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ContactBand from '../components/ContactBand.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { imgs } from '../data/images';
+
+const photos = imgs('tech-attic-install', 'dining-room-mini-split', 'crew-exterior-condenser-ladder', 'twin-condensers-white-house');
+const values = [
+  { icon: 'clock', title: 'Professionalism', text: 'Always on time. Often early. Never late.' },
+  { icon: 'check-circle', title: 'Clean and Precise Work', text: 'An installation layout that is not only functional, but aesthetically appealing to your home’s unique look.' },
+  { icon: 'shield-check', title: 'Years of Experience', text: 'With over 15 years of experience, R.D. Airway stands behind all of our work.' },
+] as const;
+---
+<BaseLayout
+  title="About Us | R.D. Airway HVAC – Westchester County, NY"
+  description="Founded by Rafael Da Silva, R.D. Airway has delivered top-quality HVAC services to Westchester County, NY and the Greater Hudson Valley for over 15 years."
+>
+  <PageHero
+    eyebrow="About R.D. Airway"
+    title="About Us"
+    subtitle="Over 15 years of HVAC craftsmanship in Westchester County, NY and the Greater Hudson Valley."
+  />
+
+  <Section id="our-story" bg="white">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="space-y-6 text-base leading-relaxed text-ink-600 lg:text-lg">
+        <p class="text-lg leading-relaxed text-ink-900 lg:text-xl">For over 15 years, R.D. Airway has proudly delivered top-quality HVAC services to Westchester County, NY, and the Greater Hudson Valley. Our journey began when founder Rafael Da Silva, starting as an assistant, gained invaluable experience in the construction industry. Over the years, he developed and sharpened his skills, working on HVAC installations and services for well-known brands like Starbucks, Dunkin’ Donuts, Fortina Pizza, and many others throughout the Hudson Valley.</p>
+        <p>What sets R.D. Airway apart is the unwavering commitment to excellence, craftsmanship, and attention to detail. From small residential projects to large commercial installations, we take pride in every step of the process, ensuring the highest standards from start to finish. At R.D. Airway, no job is too big or small. For all your HVAC installation, repair, and service needs, give us a call at <a href="tel:+19143731687" class="font-semibold">914-373-1687</a>.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-3 sm:gap-4">
+        {photos.map((p, i) => (
+          <Photo image={p} sizes="(min-width: 1280px) 290px, (min-width: 1024px) 23vw, 50vw" widths={[320, 480, 800]} loading={i < 2 ? 'eager' : 'lazy'}
+            class={`aspect-square w-full rounded-2xl object-cover shadow-card ${i % 2 ? 'translate-y-4 sm:translate-y-6' : ''}`} />
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="soft" eyebrow="What sets us apart" title="Craftsmanship you can see." align="center">
+    <div class="grid gap-6 md:grid-cols-3">
+      {values.map((v) => <ServiceCard icon={v.icon} title={v.title} text={v.text} />)}
+    </div>
+  </Section>
+
+  <Section bg="white" pad="sm" align="center">
+    <div class="mx-auto max-w-3xl py-4 text-center">
+      <h2 class="text-2xl lg:text-3xl">Trusted by brands you know</h2>
+      <p class="mt-4 text-lg text-ink-600">Our founder’s commercial HVAC work includes installations and service for Starbucks, Dunkin’ Donuts, Fortina Pizza and many others throughout the Hudson Valley.</p>
+    </div>
+  </Section>
+
+  <ContactBand />
+  <CtaBand />
+</BaseLayout>

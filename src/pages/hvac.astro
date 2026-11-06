@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceSection from '../components/ServiceSection.astro';
+import ContactBand from '../components/ContactBand.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/icons/Icon.astro';
+import { services, guarantee } from '../data/services';
+
+const jump = [
+  { id: 'installation', label: 'Installation' },
+  { id: 'emergency', label: 'Emergency Repairs' },
+  { id: 'routine', label: 'Routine Service' },
+];
+---
+<BaseLayout
+  title="HVAC Installation, Repairs & Service | R.D. Airway HVAC"
+  description="Efficient AC installation, fast emergency HVAC repairs and seasonal routine service in Westchester County and the Hudson Valley. Call (914) 373-1687."
+>
+  <PageHero
+    eyebrow="Services"
+    title="HVAC Services"
+    subtitle="Installation, emergency repairs and routine service — carefully calculated, cleanly installed, backed by a one year service guarantee on new installs."
+  />
+
+  <nav aria-label="Jump to a service" class="border-b border-line-200 bg-white">
+    <div class="container-site flex flex-wrap items-center gap-3 py-5">
+      <span class="text-sm font-semibold text-navy-900">Jump to:</span>
+      {jump.map((j) => (
+        <a href={`#${j.id}`} class="inline-flex min-h-11 items-center rounded-full border border-brand-400/40 bg-brand-50 px-5 text-sm font-semibold text-brand-700 no-underline transition hover:bg-brand-100">
+          {j.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  {services.map((s, i) => (
+    <ServiceSection
+      id={s.id}
+      icon={s.icon}
+      title={s.title}
+      intro={s.intro}
+      bullets={s.bullets}
+      images={s.images}
+      flip={i % 2 === 1}
+      bg={i % 2 === 1 ? 'soft' : 'white'}
+    />
+  ))}
+
+  <section class="bg-white py-12 lg:py-16" aria-label="Service guarantee">
+    <div class="container-site">
+      <div class="mx-auto flex max-w-3xl flex-col items-center gap-4 rounded-3xl bg-brand-50 p-8 text-center ring-1 ring-brand-400/40 sm:flex-row sm:text-left lg:p-10">
+        <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-brand-700 text-white"><Icon name="shield-check" size={28} /></span>
+        <div>
+          <h2 class="text-[1.5rem] lg:text-[1.75rem]">One year service guarantee</h2>
+          <p class="mt-2 text-lg">{guarantee}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactBand />
+  <CtaBand />
+</BaseLayout>

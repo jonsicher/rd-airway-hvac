@@ -1,0 +1,31 @@
+---
+import Photo from './Photo.astro';
+import { site } from '../data/site';
+import { img } from '../data/images';
+
+interface Props {
+  src?: string;
+  title?: string;
+  class?: string;
+}
+
+const {
+  src = site.mapEmbed,
+  title = 'Map of R.D. Airway HVAC service area around Cortlandt Manor, NY',
+  class: className = '',
+} = Astro.props;
+const fallback = img('service-area-map-hudson-valley');
+---
+<div class:list={['relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface-50 shadow-card sm:aspect-video', className]}>
+  <iframe
+    src={src}
+    title={title}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    class="absolute inset-0 h-full w-full border-0"
+    allowfullscreen
+  ></iframe>
+  <noscript>
+    <Photo image={fallback} sizes="(min-width: 1280px) 1200px, 100vw" class="absolute inset-0 h-full w-full object-cover" />
+  </noscript>
+</div>

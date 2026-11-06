@@ -1,0 +1,110 @@
+---
+// Generic accessible carousel. Every direct child of the default slot is one slide.
+// Behaviour lives in src/scripts/carousel.ts (scroll-snap + buttons + dots + keyboard + autoplay).
+import Icon from './icons/Icon.astro';
+
+interface Props {
+  /** Accessible name, e.g. "Project photos". Required. */
+  ariaLabel: string;
+  /** Slides visible per view at base / md (≥768px) / lg (≥1024px). */
+  perView?: { base?: number; md?: number; lg?: number };
+  /** Gap between slides (CSS length). */
+  gap?: string;
+  /** Autoplay interval in ms (0 = off). Always off under prefers-reduced-motion. */
+  autoplay?: number;
+  /** Wrap around from last to first. Defaults to true when autoplay is on. */
+  loop?: boolean;
+  /** 'overlay' = round buttons over the slides (images); 'below' = buttons in a row under the slides. */
+  controls?: 'overlay' | 'below' | 'none';
+  showDots?: boolean;
+  /** "2 / 7" badge (overlay controls only). */
+  showCounter?: boolean;
+  /** Set when the carousel sits on a navy/image background. */
+  onDark?: boolean;
+  class?: string;
+  trackClass?: string;
+}
+
+const {
+  ariaLabel,
+  perView = {},
+  gap = '1rem',
+  autoplay = 0,
+  loop = autoplay > 0,
+  controls = 'overlay',
+  showDots = false,
+  showCounter = false,
+  onDark = false,
+  class: className = '',
+  trackClass = '',
+} = Astro.props;
+
+const style = [
+  `--gap:${gap}`,
+  `--pv-base:${perView.base ?? 1}`,
+  perView.md ? `--pv-md:${perView.md}` : '',
+  perView.lg ? `--pv-lg:${perView.lg}` : '',
+].filter(Boolean).join(';');
+
+const overlayBtn =
+  'absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white text-navy-900 shadow-card transition hover:bg-brand-50 disabled:pointer-events-none disabled:opacity-0';
+const belowBtn = onDark
+  ? 'grid size-11 place-items-center rounded-full border border-white/30 bg-white/10 text-white transition hover:bg-white/20 disabled:opacity-40'
+  : 'grid size-11 place-items-center rounded-full border border-line-200 bg-white text-navy-900 transition hover:bg-surface-50 disabled:opacity-40';
+---
+<div
+  data-carousel
+  data-autoplay={autoplay || undefined}
+  data-loop={loop ? '' : undefined}
+  role="region"
+  aria-roledescription="carousel"
+  aria-label={ariaLabel}
+  class:list={['relative', onDark && 'on-dark', className]}
+>
+  <div class="relative">
+    <div data-carousel-track tabindex="0" class:list={['carousel-track rounded-2xl outline-none focus-visible:ring-3 focus-visible:ring-brand-500 focus-visible:ring-offset-2', onDark && 'focus-visible:ring-offset-navy-950', trackClass]} style={style} aria-live="polite">
+      <slot />
+    </div>
+
+    {controls === 'overlay' && (
+      <div data-carousel-controls>
+        <button type="button" data-carousel-prev class:list={[overlayBtn, 'left-3']} aria-label="Previous slide">
+          <Icon name="chevron-left" size={22} />
+        </button>
+        <button type="button" data-carousel-next class:list={[overlayBtn, 'right-3']} aria-label="Next slide">
+          <Icon name="chevron-right" size={22} />
+        </button>
+        {showCounter && (
+          <span data-carousel-counter class="pointer-events-none absolute bottom-3 right-3 z-10 rounded-full bg-navy-950/75 px-3 py-1 text-xs font-semibold text-white tabular-nums" aria-hidden="true" />
+        )}
+      </div>
+    )}
+  </div>
+
+  {(controls === 'below' || showDots || autoplay > 0) && (
+    <div data-carousel-controls class="mt-6 flex items-center justify-center gap-4">
+      {autoplay > 0 && (
+        <button type="button" data-carousel-pause hidden class={belowBtn} aria-label="Pause slideshow" aria-pressed="false">
+          <span data-icon-pause><Icon name="pause" size={18} /></span>
+          <span data-icon-play hidden><Icon name="play" size={18} /></span>
+        </button>
+      )}
+      {controls === 'below' && (
+        <button type="button" data-carousel-prev class={belowBtn} aria-label="Previous slide">
+          <Icon name="chevron-left" size={22} />
+        </button>
+      )}
+      {showDots && <div data-carousel-dots class="flex items-center gap-2.5 px-1" />}
+      {controls === 'below' && (
+        <button type="button" data-carousel-next class={belowBtn} aria-label="Next slide">
+          <Icon name="chevron-right" size={22} />
+        </button>
+      )}
+    </div>
+  )}
+</div>
+
+<script>
+  import { initCarousels } from '../scripts/carousel';
+  initCarousels();
+</script>

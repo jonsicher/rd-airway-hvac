@@ -1,0 +1,45 @@
+---
+// Responsive photo: AVIF + WebP sources with a JPEG fallback, srcset at 480/800/1200/1600.
+import { Picture } from 'astro:assets';
+import type { Img } from '../data/images';
+
+interface Props {
+  image: Img;
+  /** Override alt (e.g. "" for decorative backgrounds). */
+  alt?: string;
+  sizes?: string;
+  /** Widths to generate (capped at the source width). */
+  widths?: number[];
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+  draggable?: 'true' | 'false';
+}
+
+const {
+  image,
+  alt = image.alt,
+  sizes = '100vw',
+  widths = [480, 800, 1200, 1600],
+  loading = 'lazy',
+  fetchpriority,
+  class: className,
+  draggable,
+} = Astro.props;
+const w = [...new Set(widths.map((x) => Math.min(x, image.width)))];
+---
+<Picture
+  src={image.meta}
+  alt={alt}
+  widths={w}
+  sizes={sizes}
+  formats={['avif', 'webp']}
+  fallbackFormat="jpg"
+  quality={72}
+  loading={loading}
+  fetchpriority={fetchpriority}
+  decoding="async"
+  draggable={draggable}
+  class={className}
+  pictureAttributes={{ class: 'contents' }}
+/>

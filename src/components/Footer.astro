@@ -1,0 +1,71 @@
+---
+import { site, telHref, mailHref, addressLine } from '../data/site';
+import Icon from './icons/Icon.astro';
+
+const year = new Date().getFullYear();
+const socials = (Object.entries(site.social) as [keyof typeof site.social, string][]).filter(([, url]) => url);
+const socialLabel = { facebook: 'Facebook', instagram: 'Instagram', yelp: 'Yelp' } as const;
+const linkCls = 'text-white/80 no-underline hover:text-white hover:underline underline-offset-4';
+---
+<footer class="bg-navy-950 text-white/80">
+  <div class="container-site grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr] lg:gap-12 lg:py-20">
+    <div class="space-y-5">
+      <a href="/" class="inline-block rounded-xl bg-white p-3" aria-label={`${site.name} — home`}>
+        <img src={site.logo.src} width={site.logo.width} height={site.logo.height} alt={site.logo.alt} class="h-12 w-auto" loading="lazy" decoding="async" />
+      </a>
+      <p class="max-w-xs text-[0.9375rem]">{site.tagline}</p>
+      <ul class="space-y-2.5 text-[0.9375rem]">
+        <li><a href={telHref} class:list={[linkCls, 'inline-flex items-center gap-2.5 font-semibold text-white']}><Icon name="phone" size={16} class="text-brand-400" />{site.phoneDisplay}</a></li>
+        <li><a href={mailHref} class:list={[linkCls, 'inline-flex items-center gap-2.5']}><Icon name="mail" size={16} class="text-brand-400" />{site.email}</a></li>
+        <li class="inline-flex items-start gap-2.5"><Icon name="map-pin" size={16} class="mt-1 text-brand-400" /><span>{addressLine}</span></li>
+      </ul>
+      {socials.length > 0 && (
+        <ul class="flex gap-3">
+          {socials.map(([key, url]) => (
+            <li>
+              <a href={url} rel="noopener" target="_blank" class="grid size-10 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20" aria-label={socialLabel[key]}>
+                <Icon name={key} size={18} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    <nav aria-label="Company">
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-white">Company</h2>
+      <ul class="space-y-2.5 text-[0.9375rem]">
+        {site.footerNav.company.map((l) => <li><a href={l.href} class={linkCls}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-label="Services">
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-white">Services</h2>
+      <ul class="space-y-2.5 text-[0.9375rem]">
+        {site.footerNav.services.map((l) => <li><a href={l.href} class={linkCls}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-white">Service area</h2>
+      <ul class="space-y-2.5 text-[0.9375rem]">
+        {site.serviceAreas.map((a) => <li class="flex items-center gap-2.5"><Icon name="map-pin" size={16} class="text-brand-400" />{a}</li>)}
+      </ul>
+      <p class="mt-5 flex items-start gap-2.5 text-[0.9375rem]"><Icon name="clock" size={16} class="mt-1 text-brand-400" /><span><span class="font-semibold text-white">Hours:</span> {site.hours}</span></p>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-site flex flex-col gap-3 py-6 text-sm text-white/70 sm:flex-row sm:items-center sm:justify-between">
+      <p>&copy; <span data-year>{year}</span> {site.legalName}. All rights reserved.</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {site.footerNav.legal.map((l) => <li><a href={l.href} class={linkCls}>{l.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Keep the copyright year current between rebuilds.
+  document.querySelectorAll('[data-year]').forEach((el) => (el.textContent = String(new Date().getFullYear())));
+</script>

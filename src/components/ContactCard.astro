@@ -1,0 +1,39 @@
+---
+// Contact facts with icons. All values come from src/data/site.ts.
+import { site, telHref, mailHref, addressLine } from '../data/site';
+import Icon from './icons/Icon.astro';
+
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title = 'Call Today', class: className = '' } = Astro.props;
+const rowCls = 'flex gap-4';
+const chip = 'grid size-11 shrink-0 place-items-center rounded-xl bg-brand-100 text-brand-700';
+const label = 'text-sm font-semibold uppercase tracking-[0.08em] text-ink-600';
+---
+<div class:list={['card p-7 lg:p-9', className]}>
+  <h2 class="text-[1.75rem] lg:text-[2rem]">{title}</h2>
+  <a href={telHref} class="mt-3 inline-flex items-center gap-3 font-display text-3xl font-extrabold tracking-tight text-red-600 no-underline hover:text-red-700 lg:text-4xl">
+    <Icon name="phone" size={28} /> {site.phoneDisplay}
+  </a>
+  <ul class="mt-8 space-y-6">
+    <li class={rowCls}>
+      <span class={chip}><Icon name="mail" /></span>
+      <div><p class={label}>Email</p><a href={mailHref} class="font-medium break-all">{site.email}</a></div>
+    </li>
+    <li class={rowCls}>
+      <span class={chip}><Icon name="map-pin" /></span>
+      <div><p class={label}>Mailing address</p><p class="font-medium text-navy-900">{addressLine}</p></div>
+    </li>
+    <li class={rowCls}>
+      <span class={chip}><Icon name="map" /></span>
+      <div><p class={label}>Service area</p><p class="font-medium text-navy-900">{site.serviceAreas.join(' · ')}</p></div>
+    </li>
+    <li class={rowCls}>
+      <span class={chip}><Icon name="clock" /></span>
+      <div><p class={label}>Hours</p><p class="font-medium text-navy-900">{site.hours}</p></div>
+    </li>
+  </ul>
+</div>

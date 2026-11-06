@@ -1,0 +1,33 @@
+---
+import Icon, { type IconName } from './icons/Icon.astro';
+
+interface Props {
+  icon: IconName;
+  title: string;
+  text: string;
+  href?: string;
+  linkLabel?: string;
+  /** Heading tag (default h3). */
+  as?: 'h2' | 'h3' | 'h4';
+  class?: string;
+}
+
+const { icon, title, text, href, linkLabel = 'Learn more', as: H = 'h3', class: className = '' } = Astro.props;
+---
+<article class:list={['card group relative flex h-full flex-col p-7 lg:p-8', href && 'card-hover', className]}>
+  <span class="mb-6 grid size-14 place-items-center rounded-2xl bg-brand-100 text-brand-700">
+    <Icon name={icon} size={28} />
+  </span>
+  <H class="text-[1.375rem]">
+    {href ? (
+      <a href={href} class="text-navy-900 no-underline after:absolute after:inset-0 after:rounded-2xl after:content-['']">{title}</a>
+    ) : title}
+  </H>
+  <p class="mt-3 flex-1">{text}<slot /></p>
+  {href && (
+    <span class="mt-6 inline-flex items-center gap-1.5 font-semibold text-brand-700" aria-hidden="true">
+      {linkLabel}
+      <Icon name="arrow-right" size={18} class="transition-transform duration-200 group-hover:translate-x-1" />
+    </span>
+  )}
+</article>

@@ -1,0 +1,73 @@
+---
+import Photo from './Photo.astro';
+import type { Img } from '../data/images';
+
+interface Props {
+  id?: string;
+  /** white | soft (surface-50) | brand (brand-50) | navy (gradient) | image (photo + navy overlay) */
+  bg?: 'white' | 'soft' | 'brand' | 'navy' | 'image';
+  /** Background photo when bg="image". */
+  image?: Img;
+  /** Overlay strength for bg="image": 'strong' (≥ .85, default — text sits directly on it) or 'soft' (.45–.92 gradient; put text in a card). */
+  overlay?: 'strong' | 'soft';
+  eyebrow?: string;
+  title?: string;
+  /** Intro paragraph under the title. */
+  intro?: string;
+  align?: 'left' | 'center';
+  /** Heading tag for `title` (default h2). */
+  as?: 'h1' | 'h2' | 'h3';
+  /** Vertical padding: default py-16 lg:py-24; 'sm' = py-12 lg:py-16; 'none'. */
+  pad?: 'default' | 'sm' | 'none';
+  class?: string;
+  containerClass?: string;
+}
+
+const {
+  id,
+  bg = 'white',
+  image,
+  overlay = 'strong',
+  eyebrow,
+  title,
+  intro,
+  align = 'left',
+  as: H = 'h2',
+  pad = 'default',
+  class: className = '',
+  containerClass = '',
+} = Astro.props;
+
+const dark = bg === 'navy' || bg === 'image';
+const bgClass = {
+  white: 'bg-white',
+  soft: 'bg-surface-50',
+  brand: 'bg-brand-50',
+  navy: 'bg-navy-gradient text-white/85',
+  image: 'bg-navy-950 text-white/85',
+}[bg];
+const padClass = { default: 'py-16 lg:py-24', sm: 'py-12 lg:py-16', none: '' }[pad];
+const hasHeader = eyebrow || title || intro || Astro.slots.has('header');
+---
+<section id={id} class:list={['relative isolate overflow-hidden', bgClass, padClass, dark && 'on-dark', className]}>
+  {bg === 'image' && image && (
+    <>
+      <Photo image={image} alt="" sizes="100vw" widths={[800, 1200, 1600, 1920]} class="absolute inset-0 -z-20 h-full w-full object-cover" />
+      <div
+        class:list={['absolute inset-0 -z-10', overlay === 'soft' ? 'bg-image-overlay' : 'bg-navy-950/[0.88]']}
+        aria-hidden="true"
+      />
+    </>
+  )}
+  <div class:list={['container-site', containerClass]}>
+    {hasHeader && (
+      <header class:list={['mb-10 lg:mb-14', align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl']}>
+        {eyebrow && <p class:list={['eyebrow mb-4', dark && 'eyebrow-on-dark', align === 'center' && 'justify-center']}>{eyebrow}</p>}
+        {title && <H class:list={[dark && 'text-white']}>{title}</H>}
+        {intro && <p class:list={['mt-4 text-lg', dark ? 'text-white/85' : 'text-ink-600']}>{intro}</p>}
+        <slot name="header" />
+      </header>
+    )}
+    <slot />
+  </div>
+</section>

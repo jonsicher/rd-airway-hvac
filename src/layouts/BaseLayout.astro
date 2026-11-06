@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import Seo from '../components/Seo.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { business } from '../data/jsonld';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  /** Page title. "| R.D. Airway HVAC" is appended unless it already contains the brand. */
+  title: string;
+  description: string;
+  /** Root-relative or absolute image URL for Open Graph (1200×630 ideal). */
+  ogImage?: string;
+  /** Extra page-specific JSON-LD object(s), emitted after the site-wide HVACBusiness. */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+  /** Replace the site-wide HVACBusiness JSON-LD (e.g. Reviews adds `review`). Only one entity is emitted. */
+  business?: Record<string, unknown>;
+}
+
+const { title, description, ogImage, jsonLd, noindex, business: businessOverride } = Astro.props;
+const extra = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="format-detection" content="telephone=no" />
+    <Seo title={title} description={description} ogImage={ogImage} noindex={noindex} />
+    <JsonLd data={businessOverride ?? business} />
+    {extra.map((d) => <JsonLd data={d} />)}
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#main" class="sr-only-focusable fixed left-4 top-4 z-[100] rounded-full bg-navy-900 px-5 py-3 font-semibold text-white no-underline">Skip to content</a>
+    <Header />
+    <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

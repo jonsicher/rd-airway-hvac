@@ -1,0 +1,64 @@
+---
+import Icon, { type IconName } from './icons/Icon.astro';
+
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'md' | 'lg';
+  /** Use on navy/image backgrounds (changes secondary + ghost colours). */
+  onDark?: boolean;
+  /** Leading icon. */
+  icon?: IconName;
+  /** Trailing icon (e.g. 'arrow-right'). */
+  iconRight?: IconName;
+  type?: 'button' | 'submit' | 'reset';
+  /** Stretch to full width. */
+  block?: boolean;
+  ariaLabel?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  onDark = false,
+  icon,
+  iconRight,
+  type = 'button',
+  block = false,
+  ariaLabel,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const base =
+  'group inline-flex items-center justify-center gap-2 font-semibold no-underline transition duration-200 ease-out min-h-11 disabled:opacity-60 disabled:cursor-not-allowed';
+const sizes = {
+  md: 'px-6 py-3 text-[0.9375rem]',
+  lg: 'px-7 py-3.5 text-base',
+};
+const variants = {
+  primary: 'rounded-full bg-red-600 text-white hover:bg-red-700 shadow-sm',
+  secondary: onDark
+    ? 'rounded-full border border-white/30 bg-white/10 text-white hover:bg-white/20'
+    : 'rounded-full border border-line-200 bg-white text-navy-900 hover:bg-surface-50',
+  ghost: onDark
+    ? 'rounded-full px-0! text-white underline-offset-4 hover:underline'
+    : 'rounded-full px-0! text-brand-700 underline-offset-4 hover:underline',
+};
+const classes = [base, sizes[size], variants[variant], block && 'w-full', className];
+const Tag = href ? 'a' : 'button';
+---
+<Tag
+  href={href}
+  type={href ? undefined : type}
+  class:list={classes}
+  aria-label={ariaLabel}
+  {...rest}
+>
+  {icon && <Icon name={icon} size={18} />}
+  <slot />
+  {iconRight && <Icon name={iconRight} size={18} class="transition-transform group-hover:translate-x-0.5" />}
+</Tag>

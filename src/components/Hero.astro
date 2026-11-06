@@ -1,0 +1,67 @@
+---
+// Home-page hero: text left, ImageCarousel right (stacked under lg).
+import type { Img } from '../data/images';
+import { site, telHref } from '../data/site';
+import Button from './Button.astro';
+import ImageCarousel from './ImageCarousel.astro';
+import Icon from './icons/Icon.astro';
+
+interface Cta { label: string; href: string }
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  primary?: Cta;
+  /** Defaults to "Call (914) 373-1687". Pass null to hide. */
+  secondary?: Cta | null;
+  /** Small check-mark trust items under the buttons. */
+  trust?: string[];
+  images: Img[];
+  carouselLabel?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  primary = site.cta,
+  secondary = { label: `Call ${site.phoneDisplay}`, href: telHref },
+  trust = ['Fully licensed and insured', 'Over 15 years of experience', 'Weekdays & weekends'],
+  images,
+  carouselLabel = 'Recent installation photos',
+} = Astro.props;
+---
+<section class="relative isolate overflow-hidden bg-white pt-12 pb-16 lg:pt-20 lg:pb-24">
+  <!-- soft glow + faint grid -->
+  <div class="pointer-events-none absolute -right-40 -top-40 -z-10 size-[42rem] rounded-full bg-[radial-gradient(circle,var(--color-brand-100)_0%,transparent_65%)]" aria-hidden="true"></div>
+  <div
+    class="pointer-events-none absolute inset-0 -z-20 opacity-60 [background-image:linear-gradient(var(--color-line-200)_1px,transparent_1px),linear-gradient(90deg,var(--color-line-200)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_top_right,black_10%,transparent_60%)]"
+    aria-hidden="true"
+  ></div>
+
+  <div class="container-site grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+    <div>
+      {eyebrow && <p class="eyebrow mb-5">{eyebrow}</p>}
+      <h1 class="display">{title}</h1>
+      {subtitle && <p class="mt-6 max-w-xl text-lg lg:text-xl">{subtitle}</p>}
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        {primary && <Button href={primary.href} size="lg" iconRight="arrow-right">{primary.label}</Button>}
+        {secondary && <Button href={secondary.href} size="lg" variant="secondary" icon="phone">{secondary.label}</Button>}
+      </div>
+      {trust.length > 0 && (
+        <ul class="mt-8 flex flex-col gap-3 text-[0.9375rem] font-medium text-navy-900 sm:flex-row sm:flex-wrap sm:gap-x-6">
+          {trust.map((t) => (
+            <li class="flex items-center gap-2">
+              <span class="grid size-6 place-items-center rounded-full bg-brand-100 text-brand-700"><Icon name="check" size={14} strokeWidth={3} /></span>
+              {t}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+    <div class="relative">
+      <div class="absolute -bottom-4 -left-4 -z-10 hidden h-2/3 w-2/3 rounded-2xl bg-brand-100 lg:block" aria-hidden="true"></div>
+      <ImageCarousel images={images} ariaLabel={carouselLabel} aspect="4/3" eagerFirst sizes="(min-width: 1024px) 600px, 100vw" class="lg:[&_figure]:aspect-[5/4]!" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+---
+// Emits one or more JSON-LD blocks. With no `data`, emits the site-wide HVACBusiness entity.
+// Never add aggregateRating / reviewRating / openingHours — none exist on the old site.
+import { business } from '../data/jsonld';
+
+interface Props {
+  data?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { data = business } = Astro.props;
+const json = JSON.stringify(data).replace(/</g, '\\u003c');
+---
+<script type="application/ld+json" set:html={json} />

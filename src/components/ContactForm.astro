@@ -1,0 +1,171 @@
+---
+// Contact form for a static site (docs/PLAN.md §6).
+// PUBLIC_FORM_ENDPOINT set  → POST via fetch (Formspree-compatible), inline success/error.
+// PUBLIC_FORM_ENDPOINT empty → builds a mailto: to site.email and opens the visitor's email app.
+import { site, telHref } from '../data/site';
+import Button from './Button.astro';
+
+interface Props {
+  title?: string;
+  /** Override the endpoint (defaults to import.meta.env.PUBLIC_FORM_ENDPOINT). */
+  endpoint?: string;
+  class?: string;
+}
+
+const {
+  title = 'Request Your Appointment',
+  endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '',
+  class: className = '',
+} = Astro.props;
+
+const options = ['I am a potential customer.', 'I am a current customer.', "I'm neither."];
+const input =
+  'mt-2 block w-full rounded-xl border border-line-200 bg-white px-4 py-3 text-ink-900 placeholder:text-ink-600/80 transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 aria-[invalid=true]:border-red-600';
+const lbl = 'block text-sm font-semibold text-navy-900';
+const err = 'mt-1.5 text-sm font-medium text-red-600';
+---
+<div class:list={['card p-7 lg:p-9', className]}>
+  <h2 class="text-[1.75rem] lg:text-[2rem]">{title}</h2>
+  <p class="mt-2">Fields marked <span class="text-red-600" aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.</p>
+
+  <form
+    id="contact-form"
+    method="POST"
+    action={endpoint || '#'}
+    novalidate
+    data-endpoint={endpoint}
+    data-email={site.email}
+    class="mt-7 grid gap-5 sm:grid-cols-2"
+  >
+    <div class="sm:col-span-2">
+      <label for="cf-name" class={lbl}>Name <span class="text-red-600" aria-hidden="true">*</span></label>
+      <input id="cf-name" name="name" type="text" autocomplete="name" required placeholder="Your name" class={input} aria-describedby="cf-name-err" />
+      <p id="cf-name-err" class={err} data-error-for="name" hidden>Please enter your name.</p>
+    </div>
+    <div>
+      <label for="cf-email" class={lbl}>Email <span class="text-red-600" aria-hidden="true">*</span></label>
+      <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" class={input} aria-describedby="cf-email-err" />
+      <p id="cf-email-err" class={err} data-error-for="email" hidden>Please enter a valid email address.</p>
+    </div>
+    <div>
+      <label for="cf-phone" class={lbl}>Phone</label>
+      <input id="cf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(914) 555-0123" class={input} />
+    </div>
+    <div class="sm:col-span-2">
+      <label for="cf-type" class={lbl}>I am…</label>
+      <select id="cf-type" name="customer_type" class:list={[input, 'appearance-auto']}>
+        {options.map((o, i) => <option value={o} selected={i === 0}>{o}</option>)}
+      </select>
+    </div>
+    <div class="sm:col-span-2">
+      <label for="cf-message" class={lbl}>Message <span class="text-red-600" aria-hidden="true">*</span></label>
+      <textarea id="cf-message" name="message" rows="5" required placeholder="How can we help?" class={input} aria-describedby="cf-message-err"></textarea>
+      <p id="cf-message-err" class={err} data-error-for="message" hidden>Please tell us how we can help.</p>
+    </div>
+
+    <input type="hidden" name="_subject" value="Website request" />
+    <div class="hidden" aria-hidden="true">
+      <label for="cf-gotcha">Leave this field empty</label>
+      <input id="cf-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="sm:col-span-2">
+      <Button type="submit" size="lg" iconRight="send" data-submit class="w-full sm:w-auto">Submit Request</Button>
+      {!endpoint && (
+        <p class="mt-3 text-sm">This opens your email app. Prefer to call? <a href={telHref} class="font-semibold">{site.phoneDisplay}</a>.</p>
+      )}
+    </div>
+
+    <div data-status aria-live="polite" class="sm:col-span-2"></div>
+  </form>
+  <template id="cf-success">
+    <div class="rounded-xl border border-brand-500/30 bg-brand-50 p-4 text-navy-900" role="status">
+      Thanks — we received your request and will get back to you shortly. For urgent service call <a href={telHref} class="font-semibold">{site.phoneDisplay}</a>.
+    </div>
+  </template>
+  <template id="cf-error">
+    <div class="rounded-xl border border-red-600/30 bg-red-600/5 p-4 text-ink-900" role="alert">
+      Sorry, something went wrong sending your request. Please try again or call <a href={telHref} class="font-semibold">{site.phoneDisplay}</a>.
+    </div>
+  </template>
+</div>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const endpoint = form.dataset.endpoint || '';
+    const show = (id: string) => {
+      const tpl = document.getElementById(id) as HTMLTemplateElement;
+      status.replaceChildren(tpl.content.cloneNode(true));
+    };
+    const field = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
+    const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+    const validate = () => {
+      const checks: [string, boolean][] = [
+        ['name', field('name').value.trim() !== ''],
+        ['email', emailOk(field('email').value.trim())],
+        ['message', field('message').value.trim() !== ''],
+      ];
+      let firstBad: HTMLElement | null = null;
+      for (const [name, ok] of checks) {
+        const el = field(name);
+        el.setAttribute('aria-invalid', String(!ok));
+        form.querySelector<HTMLElement>(`[data-error-for="${name}"]`)!.hidden = ok;
+        if (!ok && !firstBad) firstBad = el;
+      }
+      firstBad?.focus();
+      return !firstBad;
+    };
+
+    form.addEventListener('input', (e) => {
+      const el = e.target as HTMLInputElement;
+      if (el.getAttribute('aria-invalid') === 'true') {
+        const ok = el.name === 'email' ? emailOk(el.value.trim()) : el.value.trim() !== '';
+        if (ok) {
+          el.setAttribute('aria-invalid', 'false');
+          form.querySelector<HTMLElement>(`[data-error-for="${el.name}"]`)!.hidden = true;
+        }
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.replaceChildren();
+      if (!validate()) return;
+      if (field('_gotcha').value) return; // bot
+
+      const name = field('name').value.trim();
+      field('_subject').value = `Website request from ${name}`;
+
+      if (!endpoint) {
+        const body = [
+          `Name: ${name}`,
+          `Email: ${field('email').value.trim()}`,
+          `Phone: ${field('phone').value.trim() || '—'}`,
+          `${(form.elements.namedItem('customer_type') as HTMLSelectElement).value}`,
+          '',
+          field('message').value.trim(),
+        ].join('\n');
+        window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(`Website request from ${name}`)}&body=${encodeURIComponent(body)}`;
+        return;
+      }
+
+      submit.disabled = true;
+      submit.setAttribute('aria-busy', 'true');
+      try {
+        const res = await fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        show('cf-success');
+      } catch {
+        show('cf-error');
+      } finally {
+        submit.disabled = false;
+        submit.removeAttribute('aria-busy');
+      }
+    });
+  }
+</script>

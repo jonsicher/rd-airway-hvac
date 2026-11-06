@@ -1,0 +1,40 @@
+---
+import type { Img } from '../data/images';
+import Icon, { type IconName } from './icons/Icon.astro';
+import FeatureList from './FeatureList.astro';
+import ImageCarousel from './ImageCarousel.astro';
+
+interface Props {
+  id: string;
+  icon: IconName;
+  title: string;
+  intro: string;
+  bullets: { label: string; text: string }[];
+  images: Img[];
+  /** Put the carousel on the left on desktop. */
+  flip?: boolean;
+  bg?: 'white' | 'soft';
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+
+const { id, icon, title, intro, bullets, images, flip = false, bg = 'white', ctaHref = '/contact-us/', ctaLabel = 'Request service' } = Astro.props;
+---
+<section id={id} class:list={['py-16 lg:py-24', bg === 'soft' ? 'bg-surface-50' : 'bg-white']}>
+  <div class="container-site grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+    <div class:list={[flip && 'lg:order-2']}>
+      <span class="mb-5 grid size-14 place-items-center rounded-2xl bg-brand-100 text-brand-700"><Icon name={icon} size={28} /></span>
+      <h2>{title}</h2>
+      <p class="mt-4 text-lg">{intro}</p>
+      <FeatureList items={bullets} class="mt-8" />
+      {ctaHref && (
+        <a href={ctaHref} class="group mt-8 inline-flex items-center gap-1.5 font-semibold text-brand-700 no-underline hover:underline">
+          {ctaLabel} <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-1" />
+        </a>
+      )}
+    </div>
+    <div class:list={['lg:sticky lg:top-28', flip && 'lg:order-1']}>
+      <ImageCarousel images={images} ariaLabel={`${title} project photos`} showDots />
+    </div>
+  </div>
+</section>

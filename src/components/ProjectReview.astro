@@ -1,0 +1,40 @@
+---
+// One project on /reviews/: quote card + photo carousel. Quote text must be verbatim.
+import type { Img } from '../data/images';
+import ImageCarousel from './ImageCarousel.astro';
+
+interface Props {
+  quote: string;
+  name: string;
+  project: string;
+  images: Img[];
+  /** Carousel on the right on desktop (default: carousel left). */
+  flip?: boolean;
+  /** Portrait photos → 3/4 aspect, letterboxed. */
+  portrait?: boolean;
+  id?: string;
+}
+
+const { quote, name, project, images, flip = false, portrait = false, id } = Astro.props;
+---
+<article id={id} class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+  <div class:list={[flip && 'lg:order-2']}>
+    <ImageCarousel
+      images={images}
+      ariaLabel={`${project} — photos from ${name}'s project`}
+      aspect="4/3"
+      fit={portrait ? 'contain' : 'cover'}
+      showDots
+    />
+  </div>
+  <figure class:list={['card relative m-0 p-8 lg:p-10', flip && 'lg:order-1']}>
+    <svg viewBox="0 0 48 36" width="48" height="36" aria-hidden="true" class="mb-5 text-brand-100" fill="currentColor">
+      <path d="M0 36V21.6C0 9.7 6.1 2.5 18.2 0l2.3 4.6C14.2 6.6 11 10.4 10.6 16H19v20H0Zm28.6 0V21.6C28.6 9.7 34.7 2.5 46.8 0l2.3 4.6c-6.3 2-9.5 5.8-9.9 11.4h8.4v20H28.6Z" />
+    </svg>
+    <span class="mb-4 inline-block rounded-full bg-brand-100 px-3 py-1 text-sm font-medium text-brand-700">{project}</span>
+    <blockquote class="m-0">
+      <p class="font-display text-lg font-medium leading-relaxed text-navy-900 lg:text-xl">“{quote}”</p>
+    </blockquote>
+    <figcaption class="mt-6 font-semibold text-navy-900">— {name}</figcaption>
+  </figure>
+</article>

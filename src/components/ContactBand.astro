@@ -1,0 +1,38 @@
+---
+import Photo from './Photo.astro';
+// Map-background band with the company facts card. Used on About, HVAC, Maintenance, Reviews.
+import { site, telHref, addressLine } from '../data/site';
+import { img } from '../data/images';
+import Button from './Button.astro';
+import Icon from './icons/Icon.astro';
+
+const bg = img('service-area-map-millwood');
+---
+<section class="on-dark relative isolate overflow-hidden bg-navy-950 py-16 lg:py-24">
+  <Photo image={bg} alt="" sizes="100vw" widths={[800, 1200, 1600]} class="absolute inset-0 -z-20 h-full w-full object-cover" />
+  <div class="absolute inset-0 -z-10 bg-navy-950/70" aria-hidden="true"></div>
+  <div class="container-site">
+    <div class="card max-w-xl p-7 lg:p-10">
+      <p class="eyebrow mb-3">Get in touch</p>
+      <h2 class="text-[1.75rem] lg:text-[2.25rem]">{site.legalName}</h2>
+      <p class="mt-2 font-semibold text-navy-900">{addressLine}</p>
+      <dl class="mt-6 space-y-4">
+        <div class="flex gap-3">
+          <dt class="flex items-center gap-2 font-semibold text-navy-900"><Icon name="phone" size={18} class="text-brand-700" /><span>Phone:</span></dt>
+          <dd><a href={telHref} class="font-semibold">{site.phoneDisplay}</a></dd>
+        </div>
+        <div class="flex gap-3">
+          <dt class="flex shrink-0 items-start gap-2 font-semibold text-navy-900"><Icon name="map" size={18} class="mt-1 text-brand-700" /><span>Service area:</span></dt>
+          <dd>{site.serviceAreaSentence}</dd>
+        </div>
+        <div class="flex gap-3">
+          <dt class="flex shrink-0 items-start gap-2 font-semibold text-navy-900"><Icon name="clock" size={18} class="mt-1 text-brand-700" /><span>Hours:</span></dt>
+          <dd>{site.hours}</dd>
+        </div>
+      </dl>
+      <div class="mt-8">
+        <Button href="/contact-us/" iconRight="arrow-right">Contact Us</Button>
+      </div>
+    </div>
+  </div>
+</section>

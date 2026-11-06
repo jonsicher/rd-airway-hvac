@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ImageCarousel from '../components/ImageCarousel.astro';
+import TestimonialCarousel from '../components/TestimonialCarousel.astro';
+import Button from '../components/Button.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/icons/Icon.astro';
+import { img, imgs } from '../data/images';
+import { site } from '../data/site';
+import { homeReviews } from '../data/reviews';
+
+const cards = [
+  { icon: 'snowflake', title: 'HVAC Installation', href: '/hvac/#installation',
+    text: 'A job done right the first time matters. We ensure that your AC installation from A to Z is carefully calculated for maximum efficiency and comfort for your entire family.' },
+  { icon: 'wrench', title: 'Emergency Repairs', href: '/hvac/#emergency',
+    text: 'R.D. Airway offers emergency HVAC services in Westchester County, NY as well as the Greater Hudson Valley. We pride ourselves on being there for you when it counts. Your HVAC repair is only a phone call away.' },
+  { icon: 'truck', title: 'Routine Service', href: '/maintenance/',
+    text: 'Save money in the long run, and avoid foreseeable problematic repairs of your AC units. Our annual routine service ensures your air conditioning is always running at its best with longevity in mind.' },
+] as const;
+
+const facts = ['Fully licensed and insured', 'Over 15 years of experience', 'Residential and commercial', 'Available weekdays and weekends'];
+const projectImages = imgs('tech-attic-install', 'tech-exterior-lineset-rough-in', 'tech-mounting-mini-split', 'tech-basement-ceiling-install', 'tech-ceiling-unit-install', 'crew-exterior-ladder-siding', 'tech-condenser-gauges');
+---
+<BaseLayout
+  title="HVAC Installation & Repair in Westchester | R.D. Airway HVAC"
+  description="Licensed, insured HVAC installation, emergency repairs and routine service in Westchester, Putnam and the Hudson Valley. Call (914) 373-1687."
+>
+  <Hero
+    eyebrow="Westchester County, NY · Putnam County · Connecticut"
+    title="We keep your home running right."
+    subtitle="Fully licensed and insured. Expert HVAC installation, emergency repairs and routine service for Westchester County, NY and the Greater Hudson Valley."
+    images={imgs('tech-mounting-mini-split', 'twin-condensers-white-house', 'tech-attic-install', 'living-room-mini-split')}
+  />
+
+  <Section bg="soft" eyebrow="Services" title="Installation, repairs and service — done right the first time." align="center">
+    <div class="grid gap-6 md:grid-cols-3">
+      {cards.map((c) => <ServiceCard icon={c.icon} title={c.title} text={c.text} href={c.href} />)}
+    </div>
+  </Section>
+
+  <Section id="about" bg="image" image={img('hero-suburban-neighborhood')} eyebrow="About us" title="About the company." intro="Located in Westchester County, NY and the Greater Hudson Valley, NY.">
+    <p class="max-w-3xl text-lg leading-relaxed text-white/85">
+      R.D. Airway was founded with one vision in mind. To ensure and promise expert, timely, and high quality HVAC service and results for all of our customers and clients. We take great pride in our work from start to finish. Respecting every step of the process.
+    </p>
+    <ul class="mt-8 flex flex-wrap gap-3" aria-label="Company highlights">
+      {facts.map((f) => (
+        <li class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur">
+          <Icon name="check-circle" size={18} class="text-amber-400" />{f}
+        </li>
+      ))}
+    </ul>
+    <ImageCarousel
+      class="mt-12"
+      onDark
+      aspect="4/3"
+      perView={{ base: 1, md: 2, lg: 3 }}
+      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+      images={projectImages}
+      ariaLabel="Our recent installation work"
+    />
+    <div class="mt-10">
+      <Button href="/about-us/" size="lg" iconRight="arrow-right">More About Us</Button>
+    </div>
+  </Section>
+
+  <Section bg="white" eyebrow="Reviews" title="What Customers Say." align="center">
+    <TestimonialCarousel items={homeReviews.map((r) => ({ quote: r.quote, name: r.name, project: r.project }))} ariaLabel="Customer testimonials" />
+    <div class="mt-10 text-center">
+      <Button href="/reviews/" variant="secondary" size="lg" iconRight="arrow-right">All Reviews</Button>
+    </div>
+  </Section>
+
+  <Section id="service-area" bg="image" image={img('service-area-map-hudson-valley')} overlay="soft" class="!py-20 lg:!py-32">
+    <div class="max-w-xl rounded-3xl bg-navy-950/85 p-8 text-white shadow-card backdrop-blur sm:p-10">
+      <span class="block h-1 w-14 rounded-full bg-red-500" aria-hidden="true"></span>
+      <h2 class="mt-5 font-display text-3xl font-bold text-white sm:text-4xl">Proudly serving your neighborhood.</h2>
+      <ul class="mt-6 flex flex-wrap gap-3" aria-label="Service areas">
+        {site.serviceAreas.map((a) => (
+          <li class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20">
+            <Icon name="map-pin" size={16} class="text-brand-400" />{a}
+          </li>
+        ))}
+      </ul>
+      <p class="mt-6 text-white/85">Proudly serving Westchester County, NY and the Greater Hudson Valley.</p>
+      <p class="mt-2 text-sm text-white/60">Based in {site.address.city}, {site.address.state}</p>
+    </div>
+  </Section>
+
+  <CtaBand />
+</BaseLayout>

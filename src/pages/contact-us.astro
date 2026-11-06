@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import ContactCard from '../components/ContactCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import { site } from '../data/site';
+---
+<BaseLayout
+  title="Contact Us | Request HVAC Service – R.D. Airway HVAC"
+  description="Request an appointment with R.D. Airway HVAC. Call (914) 373-1687 or send a message — serving Westchester, Putnam and Connecticut, weekdays and weekends."
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Request Your Appointment"
+    subtitle="Call today or send us a message — we're available weekdays and weekends."
+  />
+  <Section bg="soft" id="request">
+    <div class="grid items-start gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-10">
+      <ContactCard />
+      <ContactForm title="Send us a message" />
+    </div>
+  </Section>
+  <Section
+    id="service-area"
+    eyebrow="Service area"
+    title="Where we work."
+    intro={site.serviceAreaSentence + '.'}
+  >
+    <MapEmbed
+      src={site.mapEmbed}
+      title="Map of R.D. Airway HVAC service area around Cortlandt Manor, NY"
+      class="overflow-hidden rounded-2xl border border-line-200 shadow-sm"
+    />
+  </Section>
+</BaseLayout>
