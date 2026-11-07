@@ -10,7 +10,7 @@ import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/icons/Icon.astro';
 import { img, imgs } from '../data/images';
 import { site } from '../data/site';
-import { homeReviews } from '../data/reviews';
+import { homeReviews, googleReviews } from '../data/reviews';
 import { moreServices } from '../data/services';
 
 const cards = [
@@ -70,7 +70,7 @@ const projectImages = imgs('tech-attic-install', 'tech-exterior-lineset-rough-in
   </Section>
 
   <Section bg="white" eyebrow="Reviews" title="What Customers Say." align="center">
-    <TestimonialCarousel items={homeReviews.map((r) => ({ quote: r.quote, name: r.name, project: r.project }))} ariaLabel="Customer testimonials" />
+    <TestimonialCarousel items={[...googleReviews, ...homeReviews].map((r) => ({ quote: r.quote, name: r.name, project: r.project }))} ariaLabel="Customer testimonials" />
     <div class="mt-10 text-center">
       <Button href="/reviews/" variant="secondary" size="lg" iconRight="arrow-right">All Reviews</Button>
     </div>

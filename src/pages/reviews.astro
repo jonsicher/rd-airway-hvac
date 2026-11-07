@@ -4,14 +4,15 @@ import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import ContactBand from '../components/ContactBand.astro';
 import ProjectReview from '../components/ProjectReview.astro';
-import { reviews } from '../data/reviews';
+import { reviews, googleReviews } from '../data/reviews';
+import Icon from '../components/icons/Icon.astro';
 import { business } from '../data/jsonld';
 
 // One HVACBusiness entity for this page: the site-wide one plus its reviews.
 // Review items carry only author + body (no ratings exist on the old site).
 const businessWithReviews = {
   ...business,
-  review: reviews.map((r) => ({
+  review: [...googleReviews, ...reviews].map((r) => ({
     '@type': 'Review',
     author: { '@type': 'Person', name: r.name },
     reviewBody: r.quote,
@@ -28,6 +29,29 @@ const businessWithReviews = {
     title="Customer Testimonials"
     subtitle="Real projects, real homeowners across Westchester County, NY and the Greater Hudson Valley."
   />
+  <section class="bg-surface-50 py-16 lg:py-24" aria-labelledby="google-reviews-title">
+    <div class="container-site">
+      <header class="mb-10 max-w-3xl lg:mb-14">
+        <p class="eyebrow mb-4">Google reviews</p>
+        <h2 id="google-reviews-title">Recent reviews on Google.</h2>
+      </header>
+      <div class="grid gap-6 md:grid-cols-2">
+        {googleReviews.map((r) => (
+          <figure id={r.id} class="card flex flex-col p-7 lg:p-9">
+            {r.rating && (
+              <p class="mb-4 text-xl tracking-widest text-amber-400" aria-label={`${r.rating} out of 5 stars`}>{'★'.repeat(r.rating)}<span class="text-line-200">{'★'.repeat(5 - r.rating)}</span></p>
+            )}
+            <blockquote class="flex-1 text-lg leading-relaxed text-ink-900">“{r.quote}”</blockquote>
+            <figcaption class="mt-6 flex flex-wrap items-center gap-3">
+              <span class="font-semibold text-navy-900">— {r.name}</span>
+              <span class="rounded-full bg-brand-100 px-3 py-1 text-sm font-medium text-brand-700">{r.project}</span>
+              <span class="inline-flex items-center gap-1.5 text-sm text-ink-600"><Icon name="check-circle" size={16} class="text-brand-700" />Google review</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
   <section class="bg-white py-16 lg:py-24" aria-label="Customer testimonials with project photos">
     <div class="container-site space-y-16 lg:space-y-24">
       {reviews.map((r, i) => <ProjectReview {...r} flip={i % 2 === 1} />)}

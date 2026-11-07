@@ -65,3 +65,27 @@ export const reviews: Review[] = [
 
 /** The three testimonials shown on the home page, in the old order. */
 export const homeReviews = ['nancy-o', 'joe-l', 'chris-g'].map((id) => reviews.find((r) => r.id === id)!);
+
+/**
+ * Reviews from R.D. Airway's Google Business Profile, copied verbatim. Newest first.
+ * Add new ones at the top. Only add reviews that really appear on Google; leave out
+ * `rating` unless you copy the stars shown there.
+ */
+export interface GoogleReview {
+  id: string;
+  name: string;
+  project: string;
+  quote: string;
+  /** Star rating shown on Google (1–5), if known. */
+  rating?: number;
+}
+
+export const googleReviews: GoogleReview[] = [
+  {
+    id: 'jon-s',
+    name: 'Jon S.',
+    project: 'Blower Motor Diagnosis & Replacement',
+    quote:
+      'My HVAC unit stopped blowing air and I wasn’t sure what was wrong. Raf from R.D. Airway came out, quickly diagnosed a failed blower motor, and explained clearly what had gone wrong and what needed to be done. He swapped in a new motor and had everything running again. Professional, knowledgeable, and easy to work with. I’d definitely call R.D. Airway again and recommend them to anyone who needs HVAC work.',
+  },
+];
