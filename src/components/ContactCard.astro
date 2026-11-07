@@ -23,12 +23,12 @@ const label = 'text-sm font-semibold uppercase tracking-[0.08em] text-ink-600';
       <span class={chip}><Icon name="mail" /></span>
       <div><p class={label}>Email</p><a href={mailHref} class="font-medium break-all">{site.email}</a></div>
     </li>
-    <li class={rowCls}>
-      <span class={chip}><Icon name="map-pin" /></span>
-      {site.showAddress && (
-      <div><p class={label}>Mailing address</p><p class="font-medium text-navy-900">{addressLine}</p></div>
-      )}
-    </li>
+    {site.showAddress && (
+      <li class={rowCls}>
+        <span class={chip}><Icon name="map-pin" /></span>
+        <div><p class={label}>Mailing address</p><p class="font-medium text-navy-900">{addressLine}</p></div>
+      </li>
+    )}
     <li class={rowCls}>
       <span class={chip}><Icon name="map" /></span>
       <div><p class={label}>Service area</p><p class="font-medium text-navy-900">{site.serviceAreas.join(' · ')}</p></div>
