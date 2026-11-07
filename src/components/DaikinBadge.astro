@@ -1,0 +1,17 @@
+---
+// Daikin dealer badge: official Daikin logo on a white chip (the logo's dark triangle needs a
+// light background) followed by "Dealer". If Raf gets the official dealer badge artwork from
+// Daikin, replace /images/daikin-logo.svg (and the "Dealer" text if the artwork includes it).
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+const { size = 'sm', class: className = '' } = Astro.props;
+const h = { sm: 14, md: 18, lg: 30 }[size];
+const w = Math.round((h * 300) / 64.6);
+const pad = { sm: 'px-3 py-1.5 gap-2 text-sm', md: 'px-4 py-2 gap-2.5 text-[0.9375rem]', lg: 'px-6 py-4 gap-3 text-lg' }[size];
+---
+<span class:list={['inline-flex items-center rounded-full bg-white font-semibold text-navy-900 ring-1 ring-line-200', pad, className]}>
+  <img src="/images/daikin-logo.svg" alt="Daikin" width={w} height={h} style={`height:${h}px;width:auto`} loading="lazy" decoding="async" />
+  <span>Dealer</span>
+</span>

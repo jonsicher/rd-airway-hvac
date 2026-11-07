@@ -8,6 +8,7 @@ import TestimonialCarousel from '../components/TestimonialCarousel.astro';
 import Button from '../components/Button.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/icons/Icon.astro';
+import DaikinBadge from '../components/DaikinBadge.astro';
 import { img, imgs } from '../data/images';
 import { site } from '../data/site';
 import { homeReviews, googleReviews } from '../data/reviews';
@@ -49,7 +50,9 @@ const projectImages = imgs('tech-attic-install', 'tech-exterior-lineset-rough-in
       R.D. Airway was founded with one vision in mind. To ensure and promise expert, timely, and high quality HVAC service and results for all of our customers and clients. We take great pride in our work from start to finish. Respecting every step of the process.
     </p>
     <ul class="mt-8 flex flex-wrap gap-3" aria-label="Company highlights">
-      {facts.map((f) => (
+      {facts.map((f) => f === site.dealer ? (
+        <li class="inline-flex"><DaikinBadge size="md" class="!ring-0" /></li>
+      ) : (
         <li class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur">
           <Icon name="check-circle" size={18} class="text-amber-400" />{f}
         </li>

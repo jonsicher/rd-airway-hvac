@@ -1,4 +1,5 @@
 ---
+import DaikinBadge from './DaikinBadge.astro';
 import { site, telHref, mailHref, addressLine } from '../data/site';
 import Icon from './icons/Icon.astro';
 
@@ -19,9 +20,7 @@ const linkCls = 'text-white/80 no-underline hover:text-white hover:underline und
         <li><a href={mailHref} class:list={[linkCls, 'inline-flex items-center gap-2.5']}><Icon name="mail" size={16} class="text-brand-400" />{site.email}</a></li>
         {site.showAddress && <li class="inline-flex items-start gap-2.5"><Icon name="map-pin" size={16} class="mt-1 text-brand-400" /><span>{addressLine}</span></li>}
       </ul>
-      <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/20">
-        <Icon name="award" size={16} class="text-amber-400" />{site.dealer}
-      </p>
+      <p><DaikinBadge size="md" class="!ring-0" /></p>
       {socials.length > 0 && (
         <ul class="flex gap-3">
           {socials.map(([key, url]) => (
