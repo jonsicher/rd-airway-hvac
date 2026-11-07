@@ -18,6 +18,9 @@ export const site = {
   phoneTel: '+19143731687',
   phoneE164: '+1-914-373-1687',
   email: 'rdairway@gmail.com',
+  // Address is hidden site-wide until the new office lease is signed. Update the fields
+  // below to the new address and set showAddress: true to show it everywhere again.
+  showAddress: false,
   address: {
     poBox: 'PO BOX 340',
     poBoxNumber: '340',
@@ -30,14 +33,15 @@ export const site = {
   serviceAreaSentence: 'Proudly serving Westchester County, NY and the Greater Hudson Valley',
   serviceAreaShort: 'Serving Westchester County, NY & the Hudson Valley',
   hours: 'Available weekdays and weekends',
+  dealer: 'Daikin Dealer',
   licenseClaim: 'Fully licensed and insured',
   experience: 'over 15 years',
   founder: 'Rafael Da Silva',
   // Old site had icons with no links. Render an icon only when a URL is set.
   social: { facebook: '', instagram: '', yelp: '' } as Record<'facebook' | 'instagram' | 'yelp', string>,
-  mapLink: 'https://www.google.com/maps/search/?api=1&query=Verplanck%2C%20NY',
+  mapLink: 'https://www.google.com/maps/search/?api=1&query=Westchester%20County%2C%20NY',
   mapEmbed:
-    'https://maps.google.com/maps?q=Verplanck%2C%20NY&t=m&z=10&output=embed&iwloc=near',
+    'https://maps.google.com/maps?q=Westchester%20County%2C%20NY&t=m&z=9&output=embed&iwloc=near',
   logo: { src: '/images/logo-rd-airway-trimmed.png', width: 400, height: 153, alt: 'R.D. Airway HVAC' },
   ogDefault: '/og-default.jpg',
   nav: [
@@ -58,6 +62,9 @@ export const site = {
       { label: 'HVAC Installation', href: '/hvac/#installation' },
       { label: 'Emergency Repairs', href: '/hvac/#emergency' },
       { label: 'Routine Service', href: '/maintenance/' },
+      { label: 'Electrical Work', href: '/hvac/#electrical' },
+      { label: 'Load Calculations (Manual J)', href: '/hvac/#load-calculations' },
+      { label: 'Duct Cleaning', href: '/hvac/#duct-cleaning' },
     ] as NavItem[],
     legal: [
       { label: 'Privacy Policy', href: '/privacy-policy/' },

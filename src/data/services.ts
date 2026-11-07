@@ -100,4 +100,54 @@ export const services: Service[] = [
   },
 ];
 
+// Additional services (added Nov 2026 at the owner's request). Shown as cards on Home and
+// the HVAC page until project photos are available; then they can become full ServiceSections.
+export interface MoreService {
+  id: 'electrical' | 'load-calculations' | 'duct-cleaning';
+  title: string;
+  icon: 'zap' | 'calculator' | 'wind';
+  href: string;
+  text: string;
+  points: string[];
+}
+
+export const moreServices: MoreService[] = [
+  {
+    id: 'electrical',
+    title: 'Electrical Work',
+    icon: 'zap',
+    href: '/hvac/#electrical',
+    text: 'Electrical work for your heating and cooling equipment and around your home, handled by the same team that installs your system so everything is done right and works together.',
+    points: [
+      'Dedicated circuits and disconnects for new HVAC equipment',
+      'Thermostat and control wiring',
+      'Ask us about other electrical projects in your home',
+    ],
+  },
+  {
+    id: 'load-calculations',
+    title: 'Load Calculations (Manual J)',
+    icon: 'calculator',
+    href: '/hvac/#load-calculations',
+    text: 'Before we recommend a system, we calculate exactly how much heating and cooling your home needs, room by room, using the industry-standard ACCA Manual J method.',
+    points: [
+      'Accounts for insulation, windows, sun exposure and air leakage',
+      'Right-sized equipment: no short-cycling, no hot or cold rooms',
+      'Better efficiency and a longer life for your system',
+    ],
+  },
+  {
+    id: 'duct-cleaning',
+    title: 'Duct Cleaning',
+    icon: 'wind',
+    href: '/hvac/#duct-cleaning',
+    text: 'Dust, debris and buildup in your ductwork restrict airflow and get blown back into your living space. Our duct cleaning clears it out.',
+    points: [
+      'Supply and return ductwork',
+      'Better airflow to every room',
+      'Pairs well with your routine service visit',
+    ],
+  },
+];
+
 export const guarantee = 'All of our new installs are backed by a one year service guarantee.';

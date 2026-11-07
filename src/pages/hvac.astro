@@ -5,22 +5,24 @@ import ServiceSection from '../components/ServiceSection.astro';
 import ContactBand from '../components/ContactBand.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/icons/Icon.astro';
-import { services, guarantee } from '../data/services';
+import { services, moreServices, guarantee } from '../data/services';
+import { site } from '../data/site';
 
 const jump = [
   { id: 'installation', label: 'Installation' },
   { id: 'emergency', label: 'Emergency Repairs' },
   { id: 'routine', label: 'Routine Service' },
+  ...moreServices.map((s) => ({ id: s.id, label: s.title })),
 ];
 ---
 <BaseLayout
-  title="HVAC Installation, Repairs & Service | R.D. Airway HVAC"
-  description="Efficient AC installation, fast emergency HVAC repairs and seasonal routine service in Westchester County and the Hudson Valley. Call (914) 373-1687."
+  title="HVAC Services, Electrical & Duct Cleaning | R.D. Airway HVAC"
+  description="HVAC installation, emergency repairs, routine service, electrical work, Manual J load calculations and duct cleaning in Westchester. Call (914) 373-1687."
 >
   <PageHero
     eyebrow="Services"
     title="HVAC Services"
-    subtitle="Installation, emergency repairs and routine service — carefully calculated, cleanly installed, backed by a one year service guarantee on new installs."
+    subtitle="Installation, emergency repairs, routine service, electrical work, load calculations and duct cleaning — carefully calculated, cleanly installed, backed by a one year service guarantee on new installs."
   />
 
   <nav aria-label="Jump to a service" class="border-b border-line-200 bg-white">
@@ -47,9 +49,39 @@ const jump = [
     />
   ))}
 
-  <section class="bg-white py-12 lg:py-16" aria-label="Service guarantee">
+  <section class="bg-surface-50 py-16 lg:py-24" aria-labelledby="more-services-title">
     <div class="container-site">
-      <div class="mx-auto flex max-w-3xl flex-col items-center gap-4 rounded-3xl bg-brand-50 p-8 text-center ring-1 ring-brand-400/40 sm:flex-row sm:text-left lg:p-10">
+      <header class="mb-10 max-w-3xl lg:mb-14">
+        <p class="eyebrow mb-4">More services</p>
+        <h2 id="more-services-title">Beyond heating and cooling.</h2>
+      </header>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {moreServices.map((s) => (
+          <article id={s.id} class="card flex scroll-mt-32 flex-col p-7 lg:p-8">
+            <span class="mb-6 grid size-14 place-items-center rounded-2xl bg-brand-100 text-brand-700"><Icon name={s.icon} size={28} /></span>
+            <h3 class="text-[1.375rem]">{s.title}</h3>
+            <p class="mt-3">{s.text}</p>
+            <ul class="mt-5 space-y-2.5">
+              {s.points.map((pt) => (
+                <li class="flex gap-2.5"><Icon name="check" size={18} strokeWidth={3} class="mt-1 shrink-0 text-brand-700" /><span>{pt}</span></li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-12 lg:py-16" aria-label="Service guarantee and Daikin dealer">
+    <div class="container-site grid gap-6 lg:grid-cols-2">
+      <div class="flex flex-col items-center gap-4 rounded-3xl bg-navy-950 p-8 text-center text-white sm:flex-row sm:text-left lg:p-10">
+        <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-white/10 text-amber-400"><Icon name="award" size={28} /></span>
+        <div>
+          <h2 class="text-[1.5rem] text-white lg:text-[1.75rem]">{site.dealer}</h2>
+          <p class="mt-2 text-lg text-white/85">R.D. Airway is a Daikin dealer. Ask us about Daikin heating and cooling systems for your home.</p>
+        </div>
+      </div>
+      <div class="flex flex-col items-center gap-4 rounded-3xl bg-brand-50 p-8 text-center ring-1 ring-brand-400/40 sm:flex-row sm:text-left lg:p-10">
         <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-brand-700 text-white"><Icon name="shield-check" size={28} /></span>
         <div>
           <h2 class="text-[1.5rem] lg:text-[1.75rem]">One year service guarantee</h2>

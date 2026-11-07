@@ -11,6 +11,7 @@ import Icon from '../components/icons/Icon.astro';
 import { img, imgs } from '../data/images';
 import { site } from '../data/site';
 import { homeReviews } from '../data/reviews';
+import { moreServices } from '../data/services';
 
 const cards = [
   { icon: 'snowflake', title: 'HVAC Installation', href: '/hvac/#installation',
@@ -19,9 +20,10 @@ const cards = [
     text: 'R.D. Airway offers emergency HVAC services in Westchester County, NY as well as the Greater Hudson Valley. We pride ourselves on being there for you when it counts. Your HVAC repair is only a phone call away.' },
   { icon: 'truck', title: 'Routine Service', href: '/maintenance/',
     text: 'Save money in the long run, and avoid foreseeable problematic repairs of your AC units. Our annual routine service ensures your air conditioning is always running at its best with longevity in mind.' },
+  ...moreServices.map((s) => ({ icon: s.icon, title: s.title, href: s.href, text: s.text })),
 ] as const;
 
-const facts = ['Fully licensed and insured', 'Over 15 years of experience', 'Residential and commercial', 'Available weekdays and weekends'];
+const facts = ['Fully licensed and insured', 'Over 15 years of experience', site.dealer, 'Residential and commercial', 'Available weekdays and weekends'];
 const projectImages = imgs('tech-attic-install', 'tech-exterior-lineset-rough-in', 'tech-mounting-mini-split', 'tech-basement-ceiling-install', 'tech-ceiling-unit-install', 'crew-exterior-ladder-siding', 'tech-condenser-gauges');
 ---
 <BaseLayout
@@ -32,11 +34,12 @@ const projectImages = imgs('tech-attic-install', 'tech-exterior-lineset-rough-in
     eyebrow="Westchester County, NY · Putnam County · Connecticut"
     title="We keep your home running right."
     subtitle="Fully licensed and insured. Expert HVAC installation, emergency repairs and routine service for Westchester County, NY and the Greater Hudson Valley."
+    trust={['Fully licensed and insured', 'Over 15 years of experience', site.dealer, 'Weekdays & weekends']}
     images={imgs('tech-mounting-mini-split', 'twin-condensers-white-house', 'tech-attic-install', 'living-room-mini-split')}
   />
 
-  <Section bg="soft" eyebrow="Services" title="Installation, repairs and service — done right the first time." align="center">
-    <div class="grid gap-6 md:grid-cols-3">
+  <Section bg="soft" eyebrow="Services" title="Heating, cooling and more — done right the first time." align="center">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {cards.map((c) => <ServiceCard icon={c.icon} title={c.title} text={c.text} href={c.href} />)}
     </div>
   </Section>
@@ -85,7 +88,7 @@ const projectImages = imgs('tech-attic-install', 'tech-exterior-lineset-rough-in
         ))}
       </ul>
       <p class="mt-6 text-white/85">Proudly serving Westchester County, NY and the Greater Hudson Valley.</p>
-      <p class="mt-2 text-sm text-white/60">Based in {site.address.city}, {site.address.state}</p>
+      {site.showAddress && <p class="mt-2 text-sm text-white/60">Based in {site.address.city}, {site.address.state}</p>}
     </div>
   </Section>
 

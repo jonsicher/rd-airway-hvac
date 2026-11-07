@@ -15,14 +15,18 @@ export const business = {
   image: `${site.domain}${site.logo.src}`,
   logo: `${site.domain}${site.logo.src}`,
   description: site.description,
-  address: {
-    '@type': 'PostalAddress',
-    postOfficeBoxNumber: site.address.poBoxNumber,
-    addressLocality: site.address.city,
-    addressRegion: site.address.state,
-    postalCode: site.address.zip,
-    addressCountry: site.address.country,
-  },
+  ...(site.showAddress
+    ? {
+        address: {
+          '@type': 'PostalAddress',
+          postOfficeBoxNumber: site.address.poBoxNumber,
+          addressLocality: site.address.city,
+          addressRegion: site.address.state,
+          postalCode: site.address.zip,
+          addressCountry: site.address.country,
+        },
+      }
+    : {}),
   areaServed: [
     { '@type': 'AdministrativeArea', name: 'Westchester County, NY' },
     { '@type': 'AdministrativeArea', name: 'Putnam County, NY' },

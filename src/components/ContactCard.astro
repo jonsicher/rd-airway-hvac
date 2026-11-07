@@ -25,7 +25,9 @@ const label = 'text-sm font-semibold uppercase tracking-[0.08em] text-ink-600';
     </li>
     <li class={rowCls}>
       <span class={chip}><Icon name="map-pin" /></span>
+      {site.showAddress && (
       <div><p class={label}>Mailing address</p><p class="font-medium text-navy-900">{addressLine}</p></div>
+      )}
     </li>
     <li class={rowCls}>
       <span class={chip}><Icon name="map" /></span>

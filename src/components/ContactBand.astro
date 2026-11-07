@@ -15,7 +15,7 @@ const bg = img('service-area-map-hudson-valley');
     <div class="card max-w-xl p-7 lg:p-10">
       <p class="eyebrow mb-3">Get in touch</p>
       <h2 class="text-[1.75rem] lg:text-[2.25rem]">{site.legalName}</h2>
-      <p class="mt-2 font-semibold text-navy-900">{addressLine}</p>
+      {site.showAddress && <p class="mt-2 font-semibold text-navy-900">{addressLine}</p>}
       <dl class="mt-6 space-y-4">
         <div class="flex gap-3">
           <dt class="flex items-center gap-2 font-semibold text-navy-900"><Icon name="phone" size={18} class="text-brand-700" /><span>Phone:</span></dt>
